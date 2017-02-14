@@ -7,8 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70361A831E52641F001597D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70361A821E52641F001597D4 /* Constants.swift */; };
+		703C45211E5291BF000B7D6B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45201E5291BF000B7D6B /* Extensions.swift */; };
+		703C45241E529208000B7D6B /* DiscoverablePeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */; };
+		703C45291E5294DB000B7D6B /* NetworkHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45281E5294DB000B7D6B /* NetworkHistoryView.swift */; };
+		703C452B1E529E4E000B7D6B /* NetworkProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C452A1E529E4E000B7D6B /* NetworkProfileView.swift */; };
+		703C452D1E52ABF8000B7D6B /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C452C1E52ABF8000B7D6B /* BaseCell.swift */; };
+		703C452F1E52ACBB000B7D6B /* NetworkHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C452E1E52ACBB000B7D6B /* NetworkHistoryCell.swift */; };
 		70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3E81E523AFA00913494 /* AppDelegate.swift */; };
-		70BDF3EB1E523AFA00913494 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3EA1E523AFA00913494 /* ViewController.swift */; };
+		70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3EA1E523AFA00913494 /* MainViewController.swift */; };
 		70BDF3EE1E523AFA00913494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70BDF3EC1E523AFA00913494 /* Main.storyboard */; };
 		70BDF3F11E523AFA00913494 /* Metwork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3EF1E523AFA00913494 /* Metwork.xcdatamodeld */; };
 		70BDF3F31E523AFA00913494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70BDF3F21E523AFA00913494 /* Assets.xcassets */; };
@@ -16,9 +23,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		70361A821E52641F001597D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		703C45201E5291BF000B7D6B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverablePeerCell.swift; sourceTree = "<group>"; };
+		703C45281E5294DB000B7D6B /* NetworkHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHistoryView.swift; sourceTree = "<group>"; };
+		703C452A1E529E4E000B7D6B /* NetworkProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProfileView.swift; sourceTree = "<group>"; };
+		703C452C1E52ABF8000B7D6B /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		703C452E1E52ACBB000B7D6B /* NetworkHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHistoryCell.swift; sourceTree = "<group>"; };
 		70BDF3E51E523AFA00913494 /* Metwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BDF3E81E523AFA00913494 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		70BDF3EA1E523AFA00913494 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		70BDF3EA1E523AFA00913494 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		70BDF3ED1E523AFA00913494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		70BDF3F01E523AFA00913494 /* Metwork.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Metwork.xcdatamodel; sourceTree = "<group>"; };
 		70BDF3F21E523AFA00913494 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,6 +51,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		703C45221E5291F7000B7D6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		703C45251E529254000B7D6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				703C452C1E52ABF8000B7D6B /* BaseCell.swift */,
+				703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */,
+				703C45281E5294DB000B7D6B /* NetworkHistoryView.swift */,
+				703C452E1E52ACBB000B7D6B /* NetworkHistoryCell.swift */,
+				703C452A1E529E4E000B7D6B /* NetworkProfileView.swift */,
+				70BDF3EC1E523AFA00913494 /* Main.storyboard */,
+				70BDF3F41E523AFA00913494 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		703C45261E52926F000B7D6B /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				70361A821E52641F001597D4 /* Constants.swift */,
+				703C45201E5291BF000B7D6B /* Extensions.swift */,
+				70BDF3F21E523AFA00913494 /* Assets.xcassets */,
+				70BDF3F71E523AFA00913494 /* Info.plist */,
+				70BDF3EF1E523AFA00913494 /* Metwork.xcdatamodeld */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		703C45271E529292000B7D6B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				70BDF3E81E523AFA00913494 /* AppDelegate.swift */,
+				70BDF3EA1E523AFA00913494 /* MainViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		70BDF3DC1E523AF900913494 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +112,10 @@
 		70BDF3E71E523AFA00913494 /* Metwork */ = {
 			isa = PBXGroup;
 			children = (
-				70BDF3E81E523AFA00913494 /* AppDelegate.swift */,
-				70BDF3EA1E523AFA00913494 /* ViewController.swift */,
-				70BDF3EC1E523AFA00913494 /* Main.storyboard */,
-				70BDF3F21E523AFA00913494 /* Assets.xcassets */,
-				70BDF3F41E523AFA00913494 /* LaunchScreen.storyboard */,
-				70BDF3F71E523AFA00913494 /* Info.plist */,
-				70BDF3EF1E523AFA00913494 /* Metwork.xcdatamodeld */,
+				703C45221E5291F7000B7D6B /* Model */,
+				703C45251E529254000B7D6B /* View */,
+				703C45271E529292000B7D6B /* Controller */,
+				703C45261E52926F000B7D6B /* Support */,
 			);
 			path = Metwork;
 			sourceTree = "<group>";
@@ -140,9 +193,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				703C45211E5291BF000B7D6B /* Extensions.swift in Sources */,
 				70BDF3F11E523AFA00913494 /* Metwork.xcdatamodeld in Sources */,
-				70BDF3EB1E523AFA00913494 /* ViewController.swift in Sources */,
+				703C452B1E529E4E000B7D6B /* NetworkProfileView.swift in Sources */,
+				703C452F1E52ACBB000B7D6B /* NetworkHistoryCell.swift in Sources */,
+				703C45241E529208000B7D6B /* DiscoverablePeerCell.swift in Sources */,
+				703C452D1E52ABF8000B7D6B /* BaseCell.swift in Sources */,
+				70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */,
+				703C45291E5294DB000B7D6B /* NetworkHistoryView.swift in Sources */,
 				70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */,
+				70361A831E52641F001597D4 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +364,7 @@
 				70BDF3FC1E523AFA00913494 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
