@@ -10,6 +10,7 @@ import UIKit
 
 class MainViewController: UICollectionViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var isAdvertising: Bool!
     
     let networkHistoryView: NetworkHistoryView = {
         let nb = NetworkHistoryView()
@@ -37,7 +38,6 @@ class MainViewController: UICollectionViewController {
         
         // Discoverable Peers
         let topInset = view.frame.height / 1.8
-        print("Top Inset: \(topInset)")
         collectionView?.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
         
@@ -47,6 +47,8 @@ class MainViewController: UICollectionViewController {
         // mpc
         appDelegate.mpcManager?.delegate = self
         appDelegate.mpcManager?.browser.startBrowsingForPeers()
+        appDelegate.mpcManager?.advertiser.startAdvertisingPeer()
+        isAdvertising = true
     }
     
     private func setupNetworkHistoryView() {
@@ -64,6 +66,40 @@ class MainViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // MARK TODO: - unwrap
         return (appDelegate.mpcManager?.foundPeers.count)!
+    }
+    
+    func adversiseToggleDidChange(sender: UISwitch) {
+        let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertControllerStyle.actionSheet)
+        var actionTitle: String
+        
+        if isAdvertising == true {
+            actionTitle = "Make me invisible"
+        } else {
+            actionTitle = "Make me visible to others"
+        }
+        
+        let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default) { (alertAction) -> Void in
+            if self.isAdvertising == true {
+                self.appDelegate.mpcManager?.advertiser.stopAdvertisingPeer()
+            } else {
+                self.appDelegate.mpcManager?.advertiser.startAdvertisingPeer()
+            }
+        self.isAdvertising = !self.isAdvertising
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in }
+            
+        actionSheet.addAction(visibilityAction)
+        actionSheet.addAction(cancelAction)
+        
+        self.present(actionSheet, animated: true, completion: nil)
+        
+        // refactor
+        if sender.isOn {
+            print("Advertising")
+        } else {
+            print("Not Advertising")
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

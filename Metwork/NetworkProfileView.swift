@@ -26,6 +26,10 @@ class NetworkProfileView: UIView {
     
     let advertiseToggleButton: UISwitch = {
         let button = UISwitch()
+        button.isOn = true
+        button.setOn(true, animated: true)
+        button.addTarget(self, action: #selector(MainViewController.adversiseToggleDidChange), for: .valueChanged)
+        button.onTintColor = Constants.Colors.green
         return button
     }()
     
