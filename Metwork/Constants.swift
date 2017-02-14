@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 struct Constants {
-    
     struct Colors {
         static let green = UIColor(red: 0.00, green: 0.73, blue: 0.33, alpha: 1.0)
         static let purple = UIColor(red: 0.24, green: 0.14, blue: 0.64, alpha: 1.0)
@@ -37,5 +36,10 @@ struct Constants {
     struct CellIdentifiers {
         static let discoverablePeer = "discoverablePeerCellID"
         static let networkHistory = "networkHistory"
+    }
+    
+    struct MPC {
+        // must be < 15 characters, contain only lowercase ASCII characters, numbers, hyphens
+        static let serviceType = "metwork-mpc"
     }
 }

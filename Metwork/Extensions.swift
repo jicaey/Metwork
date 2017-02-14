@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension UIView {
-    
     func addConstraints(withFormat: String, views: UIView...) {
         var viewsDictionary = [String : UIView]()
         for (index, view) in views.enumerated() {

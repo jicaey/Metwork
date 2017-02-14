@@ -9,7 +9,6 @@
 import UIKit
 
 class MainViewController: UICollectionViewController {
-    
     let networkHistoryView: NetworkHistoryView = {
         let nb = NetworkHistoryView()
         return nb
@@ -22,8 +21,6 @@ class MainViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        navigationItem.title = "Business Networking"
         navigationController?.navigationBar.isTranslucent = false
         
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))

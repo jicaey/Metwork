@@ -23,7 +23,6 @@ class NetworkHistoryView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(collectionView)
         addConstraints(withFormat: "H:|[v0]|", views: collectionView)
         addConstraints(withFormat: "V:|[v0]|", views: collectionView)

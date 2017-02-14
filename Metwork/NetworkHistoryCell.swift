@@ -9,7 +9,6 @@
 import UIKit
 
 class NetworkHistoryCell: BaseCell {
-    
     let backgroundCell: UIView = {
         let bg = UIView()
         bg.layer.cornerRadius = 5

@@ -9,7 +9,6 @@
 import UIKit
 
 class NetworkProfileView: UIView {
-    
     let cardView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 3
@@ -26,9 +25,6 @@ class NetworkProfileView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        backgroundColor = Constants.Colors.purple
-        
         setupViews()
     }
     
@@ -44,5 +40,7 @@ class NetworkProfileView: UIView {
         addSubview(profileNameLabel)
         addConstraints(withFormat: "H:|-36-[v0]", views: profileNameLabel)
         addConstraints(withFormat: "V:|-36-[v0(20)]", views: profileNameLabel)
+        
+        backgroundColor = Constants.Colors.purple
     }
 }
