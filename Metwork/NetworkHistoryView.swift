@@ -47,8 +47,6 @@ extension NetworkHistoryView: UICollectionViewDataSource {
     }
 }
 
-extension NetworkHistoryView: UICollectionViewDelegate {}
-
 extension NetworkHistoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = CGSize(width: frame.width / 3, height: frame.height)
