@@ -18,9 +18,15 @@ class NetworkProfileView: UIView {
     
     let profileNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Developer Networking Profile"
-        label.font = Constants.Fonts.regMedium
+        label.text = "Advertise Networking Profile?"
+        label.textColor = .white
+        label.font = Constants.Fonts.regLarge
         return label
+    }()
+    
+    let advertiseToggleButton: UISwitch = {
+        let button = UISwitch()
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -40,6 +46,10 @@ class NetworkProfileView: UIView {
         addSubview(profileNameLabel)
         addConstraints(withFormat: "H:|-36-[v0]", views: profileNameLabel)
         addConstraints(withFormat: "V:|-36-[v0(20)]", views: profileNameLabel)
+        
+        addSubview(advertiseToggleButton)
+        addConstraints(withFormat: "H:[v0]-36-|", views: advertiseToggleButton)
+        addConstraints(withFormat: "V:|-30-[v0]", views: advertiseToggleButton)
         
         backgroundColor = Constants.Colors.purple
     }

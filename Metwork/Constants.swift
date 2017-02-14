@@ -30,7 +30,7 @@ struct Constants {
         static let regMedium = UIFont(name: "Avenir Next Condensed", size: 16)
         static let regSmall = UIFont(name: "Avenir Next Condensed", size: 14)
         static let italicSmall = UIFont(name: "AvenirNextCondensed-Italic", size: 14)
-        static let title = UIFont(name: "AvenirNextCondensed-Medium", size: 20)
+        static let title = UIFont(name: "AvenirNextCondensed-Medium", size: 24)
     }
     
     struct CellIdentifiers {
