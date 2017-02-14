@@ -15,7 +15,7 @@ class NetworkHistoryView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = Constants.Colors.purple
+        cv.backgroundColor = Constants.Colors.green
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -49,7 +49,7 @@ extension NetworkHistoryView: UICollectionViewDataSource {
 
 extension NetworkHistoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize = CGSize(width: frame.width / 3, height: frame.height)
+        let cellSize = CGSize(width: frame.width / 2, height: frame.height)
         return cellSize
     }
     

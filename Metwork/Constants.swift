@@ -12,11 +12,11 @@ import UIKit
 struct Constants {
     
     struct Colors {
-        static let green = UIColor(red:0.00, green:0.73, blue:0.33, alpha:1.0)
-        static let purple = UIColor(red:0.24, green:0.14, blue:0.64, alpha:1.0)
-        static let pink = UIColor(red:1.00, green:0.00, blue:0.58, alpha:1.0)
-        static let blue = UIColor(red:0.00, green:0.71, blue:0.97, alpha:1.0)
-        static let yellow = UIColor(red:0.98, green:0.97, blue:0.00, alpha:1.0)
+        static let green = UIColor(red: 0.00, green: 0.73, blue: 0.33, alpha: 1.0)
+        static let purple = UIColor(red: 0.24, green: 0.14, blue: 0.64, alpha: 1.0)
+        static let pink = UIColor(red: 1.00, green: 0.00, blue: 0.58, alpha: 1.0)
+        static let blue = UIColor(red: 0.00, green: 0.71, blue: 0.97, alpha: 1.0)
+        static let yellow = UIColor(red: 0.98, green: 0.97, blue: 0.00, alpha: 1.0)
         static let grey = UIColor(red: 0.9294, green: 0.9294, blue: 0.9294, alpha: 1.0)
     }
     
