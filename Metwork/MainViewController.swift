@@ -9,6 +9,8 @@
 import UIKit
 
 class MainViewController: UICollectionViewController {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     let networkHistoryView: NetworkHistoryView = {
         let nb = NetworkHistoryView()
         return nb
@@ -41,6 +43,10 @@ class MainViewController: UICollectionViewController {
         
         setupNetworkHistoryView()
         setupNetworkProfileView()
+        
+        // mpc
+        appDelegate.mpcManager?.delegate = self
+        appDelegate.mpcManager?.browser.startBrowsingForPeers()
     }
     
     private func setupNetworkHistoryView() {
@@ -56,11 +62,13 @@ class MainViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        // MARK TODO: - unwrap
+        return (appDelegate.mpcManager?.foundPeers.count)!
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
+        cell.peerIdLabel.text = "\(appDelegate.mpcManager?.foundPeers[indexPath.item])"
         // test
 //        cell.layer.shadowOpacity = 1
 //        cell.layer.shadowColor = UIColor.black.cgColor
@@ -81,6 +89,16 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+extension MainViewController: MPCManagerDelegate {
+    func found() {
+        collectionView?.reloadData()
+    }
+    
+    func lostPeer() {
+        collectionView?.reloadData()
     }
 }
 

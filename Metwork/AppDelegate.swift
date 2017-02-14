@@ -13,6 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var mpcManager: MPCManager?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
@@ -36,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.addSubview(statusBarBackgroundView)
         window?.addConstraints(withFormat: "H:|[v0]|", views: statusBarBackgroundView)
         window?.addConstraints(withFormat: "V:|[v0(20)]", views: statusBarBackgroundView)
+        
+        // mpc
+        mpcManager = MPCManager()
+        
         return true
     }
 
