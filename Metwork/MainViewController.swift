@@ -100,6 +100,8 @@ extension MainViewController: MPCManagerDelegate {
     func lostPeer() {
         collectionView?.reloadData()
     }
+    
+    
 }
 
 
