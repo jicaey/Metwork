@@ -15,6 +15,7 @@
 		703C452D1E52ABF8000B7D6B /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C452C1E52ABF8000B7D6B /* BaseCell.swift */; };
 		703C452F1E52ACBB000B7D6B /* NetworkHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C452E1E52ACBB000B7D6B /* NetworkHistoryCell.swift */; };
 		703C45311E53A4B3000B7D6B /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45301E53A4B3000B7D6B /* MPCManager.swift */; };
+		709320CA1E54E0E9006721EF /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709320C91E54E0E9006721EF /* ChatTableViewController.swift */; };
 		70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3E81E523AFA00913494 /* AppDelegate.swift */; };
 		70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3EA1E523AFA00913494 /* MainViewController.swift */; };
 		70BDF3EE1E523AFA00913494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70BDF3EC1E523AFA00913494 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		703C452C1E52ABF8000B7D6B /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		703C452E1E52ACBB000B7D6B /* NetworkHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHistoryCell.swift; sourceTree = "<group>"; };
 		703C45301E53A4B3000B7D6B /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
+		709320C91E54E0E9006721EF /* ChatTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
 		70BDF3E51E523AFA00913494 /* Metwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BDF3E81E523AFA00913494 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70BDF3EA1E523AFA00913494 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				70BDF3E81E523AFA00913494 /* AppDelegate.swift */,
 				70BDF3EA1E523AFA00913494 /* MainViewController.swift */,
+				709320C91E54E0E9006721EF /* ChatTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				703C45291E5294DB000B7D6B /* NetworkHistoryView.swift in Sources */,
 				70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */,
 				70361A831E52641F001597D4 /* Constants.swift in Sources */,
+				709320CA1E54E0E9006721EF /* ChatTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -66,7 +66,7 @@ class MainViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // MARK TODO: unwrap
+        // MARK: TODO - unwrap
         return (appDelegate.mpcManager?.foundPeers.count)!
     }
     
