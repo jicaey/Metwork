@@ -12,7 +12,11 @@ class NetworkHistoryCell: BaseCell {
     let backgroundCell: UIView = {
         let bg = UIView()
         bg.layer.cornerRadius = 5
-        bg.backgroundColor = Constants.Colors.pink
+        bg.backgroundColor = Constants.Colors.green
+//        bg.layer.shadowColor = UIColor.black.cgColor
+//        bg.layer.shadowOpacity = 1
+//        bg.layer.shadowOffset = CGSize(width: -1, height: 0)
+//        bg.layer.shadowRadius = 5
         return bg
     }()
     

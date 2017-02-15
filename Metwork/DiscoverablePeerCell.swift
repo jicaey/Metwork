@@ -49,7 +49,7 @@ class DiscoverablePeerCell: BaseCell {
     let connectChatButton: UIButton = {
         let button = UIButton()
         let buttonImage = UIImage(named: "peerChat")?.withRenderingMode(.alwaysTemplate)
-        button.tintColor = Constants.Colors.green
+        button.tintColor = Constants.Colors.blue
         button.setImage(buttonImage, for: .normal)
         return button
     }()

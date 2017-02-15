@@ -12,7 +12,6 @@ import MultipeerConnectivity
 
 class MainViewController: UICollectionViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var isAdvertising: Bool!
     
     let networkHistoryView: NetworkHistoryView = {
         let nb = NetworkHistoryView()
@@ -50,7 +49,8 @@ class MainViewController: UICollectionViewController {
         appDelegate.mpcManager?.delegate = self
         appDelegate.mpcManager?.browser.startBrowsingForPeers()
         appDelegate.mpcManager?.advertiser.startAdvertisingPeer()
-        isAdvertising = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.adversiseToggleDidChange), name: Constants.NotificationCenterNames.advertiseToggleSwitch.name, object: nil)
     }
     
     private func setupNetworkHistoryView() {
@@ -66,53 +66,48 @@ class MainViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // MARK TODO: - unwrap
+        // MARK TODO: unwrap
         return (appDelegate.mpcManager?.foundPeers.count)!
     }
     
     func adversiseToggleDidChange(sender: UISwitch) {
         let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertControllerStyle.actionSheet)
-        var actionTitle: String
+        var actionTitle = String()
         
-        if isAdvertising == true {
-            actionTitle = "Make me invisible"
+        if sender.isOn {
+            actionTitle = "Make me visible"
         } else {
-            actionTitle = "Make me visible to others"
+            actionTitle = "Make me invisible"
         }
         
         let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default) { (alertAction) -> Void in
-            if self.isAdvertising == true {
-                self.appDelegate.mpcManager?.advertiser.stopAdvertisingPeer()
-            } else {
+            if sender.isOn {
                 self.appDelegate.mpcManager?.advertiser.startAdvertisingPeer()
+                print("Started Advertising")
+            } else {
+                self.appDelegate.mpcManager?.advertiser.stopAdvertisingPeer()
+                print("Stopped Advertising")
             }
-        self.isAdvertising = !self.isAdvertising
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
+            if sender.isOn {
+                sender.setOn(false, animated: true)
+            } else {
+                sender.setOn(true, animated: true)
+            }
+        }
             
         actionSheet.addAction(visibilityAction)
         actionSheet.addAction(cancelAction)
         
         self.present(actionSheet, animated: true, completion: nil)
-        
-        // refactor
-        if sender.isOn {
-            print("Advertising")
-        } else {
-            print("Not Advertising")
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
         cell.peerIdLabel.text = "\(appDelegate.mpcManager?.foundPeers[indexPath.item])"
-        // test
-//        cell.layer.shadowOpacity = 1
-//        cell.layer.shadowColor = UIColor.black.cgColor
-//        cell.layer.shadowRadius = 10
-//        cell.layer.shadowOffset = CGSize(width: 0, height: -1)
-//        cell.layer.cornerRadius = 3
+        // add cell shadow
         return cell
     }
     
@@ -149,7 +144,7 @@ extension MainViewController: MPCManagerDelegate {
     func invintationWasReceived(fromPeer: String) {
         let alert = UIAlertController(title: "", message: "\(fromPeer) wants to network with you.", preferredStyle: UIAlertControllerStyle.alert)
         
-        let acceptAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+        let acceptAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.destructive) { (alertAction) -> Void in
             self.appDelegate.mpcManager?.invitationHandler(true, self.appDelegate.mpcManager?.session)
         }
         let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in

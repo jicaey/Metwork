@@ -28,8 +28,8 @@ class NetworkProfileView: UIView {
         let button = UISwitch()
         button.isOn = true
         button.setOn(true, animated: false)
-        button.addTarget(self, action: #selector(MainViewController.adversiseToggleDidChange), for: .valueChanged)
-        button.onTintColor = Constants.Colors.green
+        button.onTintColor = Constants.Colors.pink
+        button.addTarget(nil, action: #selector(MainViewController.adversiseToggleDidChange(sender:)), for: .valueChanged)
         return button
     }()
     

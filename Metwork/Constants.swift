@@ -43,4 +43,8 @@ struct Constants {
         static let serviceType = "metwork-mpc"
         static let segueChatIdentifier = "idSegueChat"
     }
+    
+    struct NotificationCenterNames {
+        static let advertiseToggleSwitch = Notification(name: Notification.Name(rawValue: "advertiseToggleNotification"))
+    }
 }
