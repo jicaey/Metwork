@@ -57,7 +57,35 @@ extension MPCManager: MCSessionDelegate {
             print("Did not connect to session: \(session)")
         }
     }
+    
+    // MARK: TEMPORARY - 
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        let dictionary: [String: AnyObject] = ["data": data as AnyObject, "fromPeer": peerID]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)
+    }
+    
+    // MARK: TODO - refactor
+    func sendData(dictionaryWithData dictionary: [String : String], toPeer targetPeer: MCPeerID) -> Bool {
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+        let peersArray = NSArray(object: targetPeer)
+        
+        do {
+            try session.send(dataToSend, toPeers: peersArray as! [MCPeerID], with: MCSessionSendDataMode.reliable)
+        } catch {
+            return false
+        }
+        return true
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) { }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) { }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
+    
 }
+
+
 
 extension MPCManager: MCNearbyServiceBrowserDelegate {
     // adds found peers to foundPeers array

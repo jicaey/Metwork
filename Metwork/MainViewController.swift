@@ -118,7 +118,7 @@ class MainViewController: UICollectionViewController {
     
     // MARK: TODO - unwrap session and selectedPeer
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPeer = appDelegate.mpcManager?.foundPeers[indexPath.item] as MCPeerID?
+        let selectedPeer = appDelegate.mpcManager?.foundPeers[indexPath.item] as MCPeerID!
         let session = appDelegate.mpcManager?.session
         appDelegate.mpcManager?.browser.invitePeer(selectedPeer!, to: session!, withContext: nil, timeout: 20)
     }
@@ -138,7 +138,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MainViewController: MPCManagerDelegate {
-    func found() {
+    func foundPeer() {
         collectionView?.reloadData()
     }
     
