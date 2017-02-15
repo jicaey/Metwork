@@ -112,6 +112,14 @@ class MainViewController: UICollectionViewController {
         present(tableViewController, animated: true, completion: nil)
     }
     
+    func handleConnectChatButtonTouch() {
+        print("Connect Chat Button Touched")
+    }
+    
+    func handlePeerSendButtonTouch() {
+        print("Peer Send Button Touched")
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
         cell.peerIdLabel.text = "\(appDelegate.mpcManager?.foundPeers[indexPath.item])"

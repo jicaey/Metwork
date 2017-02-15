@@ -51,6 +51,7 @@ class DiscoverablePeerCell: BaseCell {
         let buttonImage = UIImage(named: "peerChat")?.withRenderingMode(.alwaysTemplate)
         button.tintColor = Constants.Colors.blue
         button.setImage(buttonImage, for: .normal)
+        button.addTarget(nil, action: #selector(MainViewController.handleConnectChatButtonTouch), for: .touchUpInside)
         return button
     }()
     
@@ -60,6 +61,7 @@ class DiscoverablePeerCell: BaseCell {
         button.tintColor = Constants.Colors.green
         button.setImage(buttonImage, for: .normal)
         //        button.isHidden = true
+        button.addTarget(nil, action: #selector(MainViewController.handlePeerSendButtonTouch), for: .touchUpInside)
         return button
     }()
     
