@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MultipeerConnectivity
+
 
 class MainViewController: UICollectionViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -113,6 +115,12 @@ class MainViewController: UICollectionViewController {
 //        cell.layer.cornerRadius = 3
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedPeer = appDelegate.mpcManager?.foundPeers[indexPath.item] as MCPeerID?
+        let session = appDelegate.mpcManager?.session
+        appDelegate.mpcManager?.browser.invitePeer(selectedPeer!, to: session, withContext: nil, timeout: 20)
+    }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
@@ -135,6 +143,24 @@ extension MainViewController: MPCManagerDelegate {
     
     func lostPeer() {
         collectionView?.reloadData()
+    }
+    
+    func invintationWasReceived(fromPeer: String) {
+        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to network with you.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let acceptAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+            self.appDelegate.mpcManager?.invitationHandler(true, self.appDelegate.mpcManager?.session)
+        }
+        let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
+            self.appDelegate.mpcManager?.invitationHandler(false, nil)
+        }
+        
+        alert.addAction(acceptAction)
+        alert.addAction(declineAction)
+        
+        OperationQueue.main.addOperation { () -> Void in
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

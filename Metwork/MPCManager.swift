@@ -74,5 +74,14 @@ extension MPCManager: MCNearbyServiceBrowserDelegate {
 }
 
 extension MPCManager: MCNearbyServiceAdvertiserDelegate {
+    // invitation handler
+    // MARK: TODO - peerID displayName to custom
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        self.invitationHandler = invitationHandler
+        delegate?.invintationWasReceived(fromPeer: peerID.displayName)
+    }
     
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
+        print(error.localizedDescription)
+    }
 }
