@@ -116,10 +116,11 @@ class MainViewController: UICollectionViewController {
         return cell
     }
     
+    // MARK: TODO - unwrap session and selectedPeer
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedPeer = appDelegate.mpcManager?.foundPeers[indexPath.item] as MCPeerID?
         let session = appDelegate.mpcManager?.session
-        appDelegate.mpcManager?.browser.invitePeer(selectedPeer!, to: session, withContext: nil, timeout: 20)
+        appDelegate.mpcManager?.browser.invitePeer(selectedPeer!, to: session!, withContext: nil, timeout: 20)
     }
 }
 
@@ -160,6 +161,13 @@ extension MainViewController: MPCManagerDelegate {
         
         OperationQueue.main.addOperation { () -> Void in
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // inform the collectionView that the device is connected with a peer
+    func connectedWithPeer(peerID: MCPeerID) {
+        OperationQueue.main.addOperation { () -> Void in
+            self.performSegue(withIdentifier: Constants.MPC.segueChatIdentifier, sender: self)
         }
     }
 }

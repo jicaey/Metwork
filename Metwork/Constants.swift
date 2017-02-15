@@ -41,5 +41,6 @@ struct Constants {
     struct MPC {
         // must be < 15 characters, contain only lowercase ASCII characters, numbers, hyphens
         static let serviceType = "metwork-mpc"
+        static let segueChatIdentifier = "idSegueChat"
     }
 }

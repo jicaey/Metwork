@@ -46,7 +46,17 @@ class MPCManager: NSObject {
 }
 
 extension MPCManager: MCSessionDelegate {
-    
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        switch state {
+        case MCSessionState.connected:
+            print("Connected to session: \(session)")
+            delegate?.connectedWithPeer(peerID: peerID)
+        case MCSessionState.connecting:
+            print("Connecting to session: \(session)")
+        default:
+            print("Did not connect to session: \(session)")
+        }
+    }
 }
 
 extension MPCManager: MCNearbyServiceBrowserDelegate {
