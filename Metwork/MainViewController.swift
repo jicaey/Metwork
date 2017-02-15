@@ -104,6 +104,14 @@ class MainViewController: UICollectionViewController {
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    func handleTempButtonTouch() {
+        let tableViewController = ChatTableViewController()
+        tableViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+        tableViewController.preferredContentSize = CGSize(width: view.frame.width, height: 400)
+        
+        present(tableViewController, animated: true, completion: nil)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
         cell.peerIdLabel.text = "\(appDelegate.mpcManager?.foundPeers[indexPath.item])"

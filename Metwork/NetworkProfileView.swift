@@ -36,6 +36,7 @@ class NetworkProfileView: UIView {
     let tempButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = Constants.Colors.pink
+        button.addTarget(nil, action: #selector(MainViewController.handleTempButtonTouch), for: .touchUpInside)
         return button
     }()
     
