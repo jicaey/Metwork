@@ -31,17 +31,16 @@ class ChatViewController: UIViewController {
         return tableView
     }()
     
-    // MARK: TODO - Limit character count
-    let chatTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = Constants.Colors.blue
-        textView.font = Constants.Fonts.regSmall
-        textView.isScrollEnabled = false
-        textView.sizeToFit()
-        textView.isUserInteractionEnabled = true
-        textView.text = "Placeholder"
-        textView.layoutIfNeeded()
-        return textView
+    // MARK: TODO - Limit character count and fix constraints
+    let chatTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = Constants.Colors.blue
+        textField.font = Constants.Fonts.regSmall
+        textField.sizeToFit()
+        textField.isUserInteractionEnabled = true
+        textField.text = "Placeholder"
+        textField.layoutIfNeeded()
+        return textField
     }()
     
     let chatSendButton: UIButton = {
@@ -70,9 +69,9 @@ class ChatViewController: UIViewController {
         view.addConstraints(withFormat: "H:|[v0]|", views: chatTableView)
         view.addConstraints(withFormat: "V:|-200-[v0]|", views: chatTableView)
         
-        view.addSubview(chatTextView)
-        view.addConstraints(withFormat: "H:|[v0]-50-|", views: chatTextView)
-        view.addConstraints(withFormat: "V:|-150-[v0]", views: chatTextView)
+        view.addSubview(chatTextField)
+        view.addConstraints(withFormat: "H:|[v0]-50-|", views: chatTextField)
+        view.addConstraints(withFormat: "V:|-150-[v0]", views: chatTextField)
         
         view.addSubview(chatSendButton)
         view.addConstraints(withFormat: "H:[v0(50)]|", views: chatSendButton)
