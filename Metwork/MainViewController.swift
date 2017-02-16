@@ -36,16 +36,15 @@ class MainViewController: UICollectionViewController {
         collectionView?.backgroundColor = .white
         
         collectionView?.register(DiscoverablePeerCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.discoverablePeer)
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
         
         setupNetworkHistoryView()
         setupNetworkProfileView()
         setupDiscoverablePeersView()
         // mpc
-        appDelegate.mpcManager?.delegate = self
-        appDelegate.mpcManager?.browser.startBrowsingForPeers()
-        appDelegate.mpcManager?.advertiser.startAdvertisingPeer()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.adversiseToggleDidChange), name: Constants.NotificationCenterNames.advertiseToggleSwitch.name, object: nil)
+        appDelegate.mpcManager.delegate = self
+        appDelegate.mpcManager.browser.startBrowsingForPeers()
+        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
     }
     
     private func setupNetworkHistoryView() {
@@ -68,7 +67,7 @@ class MainViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // MARK: TODO - unwrap
-        return (appDelegate.mpcManager?.foundPeers.count)!
+        return appDelegate.mpcManager.foundPeers.count
     }
     
     func adversiseToggleDidChange(sender: UISwitch) {
@@ -83,10 +82,10 @@ class MainViewController: UICollectionViewController {
         
         let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default) { (alertAction) -> Void in
             if sender.isOn {
-                self.appDelegate.mpcManager?.advertiser.startAdvertisingPeer()
+                self.appDelegate.mpcManager.advertiser.startAdvertisingPeer()
                 print("Started Advertising")
             } else {
-                self.appDelegate.mpcManager?.advertiser.stopAdvertisingPeer()
+                self.appDelegate.mpcManager.advertiser.stopAdvertisingPeer()
                 print("Stopped Advertising")
             }
         }
@@ -123,16 +122,20 @@ class MainViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
-        cell.peerIdLabel.text = "\(appDelegate.mpcManager?.foundPeers[indexPath.item])"
+        cell.peerIdLabel.text = appDelegate.mpcManager.foundPeers[indexPath.row].displayName
         // add cell shadow
         return cell
     }
     
     // MARK: TODO - unwrap session and selectedPeer
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPeer = appDelegate.mpcManager?.foundPeers[indexPath.item] as MCPeerID!
-        let session = appDelegate.mpcManager?.session
-        appDelegate.mpcManager?.browser.invitePeer(selectedPeer!, to: session!, withContext: nil, timeout: 20)
+        let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.item] as MCPeerID
+//        let session = appDelegate.mpcManager?.session
+        appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }
 
@@ -161,11 +164,11 @@ extension MainViewController: MPCManagerDelegate {
     func invintationWasReceived(fromPeer: String) {
         let alert = UIAlertController(title: "", message: "\(fromPeer) wants to network with you.", preferredStyle: UIAlertControllerStyle.alert)
         
-        let acceptAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.destructive) { (alertAction) -> Void in
-            self.appDelegate.mpcManager?.invitationHandler(true, self.appDelegate.mpcManager?.session)
+        let acceptAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+            self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
         }
         let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
-            self.appDelegate.mpcManager?.invitationHandler(false, nil)
+            self.appDelegate.mpcManager.invitationHandler(false, nil)
         }
         
         alert.addAction(acceptAction)
@@ -179,7 +182,13 @@ extension MainViewController: MPCManagerDelegate {
     // inform the collectionView that the device is connected with a peer
     func connectedWithPeer(peerID: MCPeerID) {
         OperationQueue.main.addOperation { () -> Void in
-            self.performSegue(withIdentifier: Constants.MPC.segueChatIdentifier, sender: self)
+//            self.performSegue(withIdentifier: Constants.CellIdentifiers.chatTableViewCell, sender: self)
+            let chatViewController = ChatViewController()
+            chatViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+            chatViewController.preferredContentSize = CGSize(width: chatViewController.view.frame.width, height: 400)
+            
+            self.present(chatViewController, animated: true, completion: nil)
+
         }
     }
 }

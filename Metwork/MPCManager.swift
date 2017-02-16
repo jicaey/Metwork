@@ -33,6 +33,7 @@ class MPCManager: NSObject {
         // MARK: TODO - change displayName to custom string
         peer = MCPeerID(displayName: UIDevice.current.name)
         
+//        session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
         session = MCSession(peer: peer)
         session.delegate = self
         
@@ -49,31 +50,40 @@ extension MPCManager: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case MCSessionState.connected:
-            print("Connected to session: \(session)")
+            print("*******************************Connected to session: \(session)")
             delegate?.connectedWithPeer(peerID: peerID)
         case MCSessionState.connecting:
-            print("Connecting to session: \(session)")
+            print("*******************************Connecting to session: \(session)")
         default:
-            print("Did not connect to session: \(session)")
+            print("*******************************Did not connect to session: \(session)")
         }
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        let dictionary: [String: AnyObject] = ["data": data as AnyObject, "fromPeer": peerID]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)
+//        let dictionary: [String : AnyObject] = ["data" : data as AnyObject, "fromPeer": peerID]
+        print("didReceive data called**************************************")
+        let dictionary: [String : Any] = ["data" : data, "fromPeer" : peerID]
+        NotificationCenter.default.post(name: Constants.MPC.receivedDataNotification, object: dictionary)
     }
     
     // MARK: TODO - refactor
     func sendData(dictionaryWithData dictionary: [String : String], toPeer targetPeer: MCPeerID) -> Bool {
+        print("******************************Entered sendData func")
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+        print("dataToSend: \(dataToSend)")
         let peersArray = NSArray(object: targetPeer)
+        print("peersArray: \(peersArray)")
         
         do {
             try session.send(dataToSend, toPeers: peersArray as! [MCPeerID], with: MCSessionSendDataMode.reliable)
+            print("********************************Trying to send data")
         } catch {
+            print("******************************sendDataFunc return false")
             return false
         }
+        print("******************************sendDataFunc return true")
         return true
+        
     }
     
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) { }
@@ -94,6 +104,7 @@ extension MPCManager: MCNearbyServiceBrowserDelegate {
     }
     
     // handle peers that are no longer discoverable
+    // MARK: TODO - handle case where connection is lost between peers and if one peer terminates app. Post Notification and observe
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         for (index, aPeer) in foundPeers.enumerated() {
             if aPeer == peerID {

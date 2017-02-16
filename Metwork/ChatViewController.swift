@@ -94,16 +94,18 @@ class ChatViewController: UIViewController {
     
     // MARK: TODO - Fix names, unwrap
     func handleMPCReceivedData(withNotification: NSNotification) {
+        print("************************* Entered handleMPCReceivedData()")
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = withNotification.object as! [String : AnyObject]
-        
+        print("receivedDataDictionary:\(receivedDataDictionary)")
         // "Extract" the data and the source peer from the received dictionary.
         let data = receivedDataDictionary["data"] as? Data
+        print("data: \(data)")
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
-        
+        print("fromPeer: \(fromPeer)")
         // Convert the data (NSData) into a Dictionary object.
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data!) as! [String : String]
-        
+        print("dataDictionary: \(dataDictionary)")
         // Check if there's an entry with the "message" key.
         if let message = dataDictionary["message"] {
             // Make sure that the message is other than "_end_chat_".
@@ -125,7 +127,7 @@ class ChatViewController: UIViewController {
                 let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (alertAction) -> Void in
-                    self.appDelegate.mpcManager?.session.disconnect()
+                    self.appDelegate.mpcManager.session.disconnect()
                     self.dismiss(animated: true, completion: nil)
                 }
                 alert.addAction(doneAction)
@@ -140,14 +142,21 @@ class ChatViewController: UIViewController {
     // MARK: TODO - Refactor and unwrap
     func handleEndChatButtonTouch() {
         let messageDictionary = ["message": "_end_chat_"]
-        if (appDelegate.mpcManager?.sendData(dictionaryWithData: messageDictionary, toPeer: (appDelegate.mpcManager?.session.connectedPeers[0])! as MCPeerID))! {
+        if appDelegate.mpcManager.session.connectedPeers.count > 0 {
+            if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID) {
+                self.dismiss(animated: true, completion: { () -> Void in
+                    self.appDelegate.mpcManager.session.disconnect()
+                })
+            }
+        } else {
             self.dismiss(animated: true, completion: { () -> Void in
-                self.appDelegate.mpcManager?.session.disconnect()
+                self.appDelegate.mpcManager.session.disconnect()
             })
         }
     }
     
     func updateTableView() {
+        print("entered updateTableView()")
         self.chatTableView.reloadData()
         
         if self.chatTableView.contentSize.height > self.chatTableView.frame.size.height {
@@ -155,18 +164,20 @@ class ChatViewController: UIViewController {
             self.chatTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
         }
     }
-
+    
 }
 
 extension ChatViewController: UITextFieldDelegate {
     // MARK: TODO - unwrap
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("****** entered textFieldShouldReturn()")
         textField.resignFirstResponder()
         
         let messageDictionary: [String: String] = ["message": textField.text!]
-        let peer = (appDelegate.mpcManager?.session.connectedPeers[0])! as MCPeerID
+        print("MessageDictionary: \(messageDictionary)")
+        let peer = appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID
         
-        if (appDelegate.mpcManager?.sendData(dictionaryWithData: messageDictionary, toPeer: peer))! {
+        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: peer) {
             let dictionary: [String: String] = ["sender": "self", "message": textField.text!]
             messagesArray.append(dictionary)
             
@@ -180,8 +191,7 @@ extension ChatViewController: UITextFieldDelegate {
 }
 
 extension ChatViewController: UITableViewDelegate {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
 }
 
 extension ChatViewController: UITableViewDataSource {
@@ -191,7 +201,9 @@ extension ChatViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.chatTableViewCell, for: indexPath)
+        var cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.chatTableViewCell, for: indexPath)
+        cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
+        cell.detailTextLabel?.style
         let currentMessage = messagesArray[indexPath.row] as [String : String]
         
         if let sender = currentMessage["sender"] {
