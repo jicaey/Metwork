@@ -78,7 +78,6 @@ class DiscoverablePeerCell: BaseCell {
         addConstraints(withFormat: "H:|-16-[v0(44)]-8-[v1]-8-[v2]-8-[v3(44)][v4(44)]|", views: thumbnailImageView, peerIdLabel, professionLabel, peerSendButton, connectChatButton)
         addConstraints(withFormat: "H:|-76-[v0(200)]", views: statusLabel)
         
-        
         // vertical
         addConstraints(withFormat: "V:|-3-[v0]-3-|", views: thumbnailImageView)
         addConstraints(withFormat: "V:|-3-[v0(20)]-4-[v1(20)]-3-|", views: statusLabel, peerIdLabel)

@@ -36,6 +36,7 @@ struct Constants {
     struct CellIdentifiers {
         static let discoverablePeer = "discoverablePeerCellID"
         static let networkHistory = "networkHistory"
+        static let chatTableViewCell = "chatCell"
     }
     
     struct MPC {

@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 // MARK: TODO - Refactor MVC
 class ChatViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var messagesArray = [[String : String]]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.Colors.green
-        
+        chatTableView.delegate = self
+        chatTableView.dataSource = self
+        chatTextField.delegate = self
         setupViews()
     }
     
@@ -28,6 +31,8 @@ class ChatViewController: UIViewController {
     
     let chatTableView: UITableView = {
         let tableView = UITableView()
+        tableView.estimatedRowHeight = 60.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         return tableView
     }()
     
@@ -61,6 +66,8 @@ class ChatViewController: UIViewController {
     }()
     
     func setupViews() {
+        chatTableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
+        
         view.addSubview(chatView)
         view.addConstraints(withFormat: "H:|[v0]|", views: chatView)
         view.addConstraints(withFormat: "V:|[v0(200)]", views: chatView)
@@ -85,36 +92,70 @@ class ChatViewController: UIViewController {
     func handleEndChatButtonTouch() {
         self.dismiss(animated: true, completion: nil)
     }
-
-    // MARK: - Table view data source
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
-//    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
-extension ChatViewController: UITextViewDelegate {
+extension ChatViewController: UITextFieldDelegate {
+    // MARK: TODO - unwrap
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        let messageDictionary: [String: String] = ["message": textField.text!]
+        let peer = (appDelegate.mpcManager?.session.connectedPeers[0])! as MCPeerID
+        
+        if (appDelegate.mpcManager?.sendData(dictionaryWithData: messageDictionary, toPeer: peer))! {
+            let dictionary: [String: String] = ["sender": "self", "message": textField.text!]
+            messagesArray.append(dictionary)
+            
+            self.updateTableView()
+        } else {
+            print("Could not send data")
+        }
+        textField.text = ""
+        return true
+    }
+    
+    func updateTableView() {
+        self.chatTableView.reloadData()
+        
+        if self.chatTableView.contentSize.height > self.chatTableView.frame.size.height {
+            let indexPath = IndexPath(row: messagesArray.count - 1, section: 0)
+            self.chatTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+        }
+    }
+}
+
+extension ChatViewController: UITableViewDelegate {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    }
+}
+
+extension ChatViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messagesArray.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.chatTableViewCell, for: indexPath)
+        let currentMessage = messagesArray[indexPath.row] as [String : String]
+        
+        if let sender = currentMessage["sender"] {
+            var senderLabelText: String
+            var senderColor: UIColor
+            
+            if sender == "self" {
+                senderLabelText = "I said:"
+                senderColor = Constants.Colors.blue
+            } else {
+                senderLabelText = sender + " said:"
+                senderColor = Constants.Colors.green
+            }
+            cell.detailTextLabel?.text = senderLabelText
+            cell.detailTextLabel?.textColor = senderColor
+        }
+        if let message = currentMessage["message"] {
+            cell.textLabel?.text = message
+        }
+        return cell
+    }
 }
