@@ -37,14 +37,9 @@ class MainViewController: UICollectionViewController {
         
         collectionView?.register(DiscoverablePeerCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.discoverablePeer)
         
-        // Discoverable Peers
-        let topInset = view.frame.height / 1.8
-        collectionView?.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        
         setupNetworkHistoryView()
         setupNetworkProfileView()
-        
+        setupDiscoverablePeersView()
         // mpc
         appDelegate.mpcManager?.delegate = self
         appDelegate.mpcManager?.browser.startBrowsingForPeers()
@@ -63,6 +58,12 @@ class MainViewController: UICollectionViewController {
         view.addSubview(networkProfileView)
         view.addConstraints(withFormat: "H:|[v0]|", views: networkProfileView)
         view.addConstraints(withFormat: "V:|[v0(270)]", views: networkProfileView)
+    }
+    
+    private func setupDiscoverablePeersView() {
+        let topInset = view.frame.height / 1.8
+        collectionView?.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -105,11 +106,11 @@ class MainViewController: UICollectionViewController {
     }
     
     func handleTempButtonTouch() {
-        let tableViewController = ChatTableViewController()
-        tableViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-        tableViewController.preferredContentSize = CGSize(width: view.frame.width, height: 400)
+        let chatViewController = ChatViewController()
+        chatViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+        chatViewController.preferredContentSize = CGSize(width: view.frame.width, height: 400)
         
-        present(tableViewController, animated: true, completion: nil)
+        present(chatViewController, animated: true, completion: nil)
     }
     
     func handleConnectChatButtonTouch() {
