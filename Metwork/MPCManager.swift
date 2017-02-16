@@ -58,7 +58,6 @@ extension MPCManager: MCSessionDelegate {
         }
     }
     
-    // MARK: TEMPORARY - 
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         let dictionary: [String: AnyObject] = ["data": data as AnyObject, "fromPeer": peerID]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)

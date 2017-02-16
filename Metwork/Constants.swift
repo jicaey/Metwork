@@ -43,9 +43,10 @@ struct Constants {
         // must be < 15 characters, contain only lowercase ASCII characters, numbers, hyphens
         static let serviceType = "metwork-mpc"
         static let segueChatIdentifier = "idSegueChat"
+        static let receivedDataNotification = Notification.Name(rawValue: "MPCDataNotification")
     }
     
     struct NotificationCenterNames {
-        static let advertiseToggleSwitch = Notification(name: Notification.Name(rawValue: "advertiseToggleNotification"))
+//        static let advertiseToggleSwitch = Notification(name: Notification.Name(rawValue: "advertiseToggleNotification"))
     }
 }

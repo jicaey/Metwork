@@ -20,6 +20,9 @@ class ChatViewController: UIViewController {
         chatTableView.delegate = self
         chatTableView.dataSource = self
         chatTextField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCReceivedData), name: Constants.MPC.receivedDataNotification, object: nil)
+        
         setupViews()
     }
     
@@ -89,9 +92,70 @@ class ChatViewController: UIViewController {
         view.addConstraints(withFormat: "V:|-16-[v0]", views: endChatButton)
     }
     
-    func handleEndChatButtonTouch() {
-        self.dismiss(animated: true, completion: nil)
+    // MARK: TODO - Fix names, unwrap
+    func handleMPCReceivedData(withNotification: NSNotification) {
+        // Get the dictionary containing the data and the source peer from the notification.
+        let receivedDataDictionary = withNotification.object as! [String : AnyObject]
+        
+        // "Extract" the data and the source peer from the received dictionary.
+        let data = receivedDataDictionary["data"] as? Data
+        let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
+        
+        // Convert the data (NSData) into a Dictionary object.
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data!) as! [String : String]
+        
+        // Check if there's an entry with the "message" key.
+        if let message = dataDictionary["message"] {
+            // Make sure that the message is other than "_end_chat_".
+            if message != "_end_chat_"{
+                // Create a new dictionary and set the sender and the received message to it.
+                let messageDictionary: [String: String] = ["sender": fromPeer.displayName, "message": message]
+                
+                // Add this dictionary to the messagesArray array.
+                messagesArray.append(messageDictionary)
+                
+                // Reload the tableview data and scroll to the bottom using the main thread.
+                OperationQueue.main.addOperation({ () -> Void in
+                    self.updateTableView()
+                })
+            }
+            else{
+                // In this case an "_end_chat_" message was received.
+                // Show an alert view to the user.
+                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+                    self.appDelegate.mpcManager?.session.disconnect()
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(doneAction)
+                
+                OperationQueue.main.addOperation({ () -> Void in
+                    self.present(alert, animated: true, completion: nil)
+                })
+            }
+        }
     }
+    
+    // MARK: TODO - Refactor and unwrap
+    func handleEndChatButtonTouch() {
+        let messageDictionary = ["message": "_end_chat_"]
+        if (appDelegate.mpcManager?.sendData(dictionaryWithData: messageDictionary, toPeer: (appDelegate.mpcManager?.session.connectedPeers[0])! as MCPeerID))! {
+            self.dismiss(animated: true, completion: { () -> Void in
+                self.appDelegate.mpcManager?.session.disconnect()
+            })
+        }
+    }
+    
+    func updateTableView() {
+        self.chatTableView.reloadData()
+        
+        if self.chatTableView.contentSize.height > self.chatTableView.frame.size.height {
+            let indexPath = IndexPath(row: messagesArray.count - 1, section: 0)
+            self.chatTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+        }
+    }
+
 }
 
 extension ChatViewController: UITextFieldDelegate {
@@ -112,15 +176,6 @@ extension ChatViewController: UITextFieldDelegate {
         }
         textField.text = ""
         return true
-    }
-    
-    func updateTableView() {
-        self.chatTableView.reloadData()
-        
-        if self.chatTableView.contentSize.height > self.chatTableView.frame.size.height {
-            let indexPath = IndexPath(row: messagesArray.count - 1, section: 0)
-            self.chatTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
-        }
     }
 }
 
