@@ -33,12 +33,12 @@ class NetworkProfileView: UIView {
         return button
     }()
     
-    let tempButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = Constants.Colors.pink
-        button.addTarget(nil, action: #selector(MainViewController.handleTempButtonTouch), for: .touchUpInside)
-        return button
-    }()
+//    let tempButton: UIButton = {
+//        let button = UIButton()
+//        button.backgroundColor = Constants.Colors.pink
+//        button.addTarget(nil, action: #selector(MainViewController.handleTempButtonTouch), for: .touchUpInside)
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,9 +62,9 @@ class NetworkProfileView: UIView {
         addConstraints(withFormat: "H:[v0]-36-|", views: advertiseToggleButton)
         addConstraints(withFormat: "V:|-30-[v0]", views: advertiseToggleButton)
         
-        addSubview(tempButton)
-        addConstraints(withFormat: "H:|-150-[v0(100)]", views: tempButton)
-        addConstraints(withFormat: "V:|-70-[v0(20)]", views: tempButton)
+//        addSubview(tempButton)
+//        addConstraints(withFormat: "H:|-150-[v0(100)]", views: tempButton)
+//        addConstraints(withFormat: "V:|-70-[v0(20)]", views: tempButton)
         
         backgroundColor = Constants.Colors.purple
     }

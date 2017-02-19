@@ -25,13 +25,6 @@ class MainViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isTranslucent = false
-        
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
-        titleLabel.text = "Metwork"
-        titleLabel.textColor = .white
-        titleLabel.font = Constants.Fonts.title
-        navigationItem.titleView = titleLabel
         
         collectionView?.backgroundColor = .white
         
@@ -41,6 +34,7 @@ class MainViewController: UICollectionViewController {
         setupNetworkHistoryView()
         setupNetworkProfileView()
         setupDiscoverablePeersView()
+        setupNavigationBar()
         // mpc
         appDelegate.mpcManager.delegate = self
         appDelegate.mpcManager.browser.startBrowsingForPeers()
@@ -65,8 +59,17 @@ class MainViewController: UICollectionViewController {
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
     }
     
+    private func setupNavigationBar() {
+         navigationController?.navigationBar.isTranslucent = false
+        
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
+        titleLabel.text = "Metwork"
+        titleLabel.textColor = .white
+        titleLabel.font = Constants.Fonts.title
+        navigationItem.titleView = titleLabel
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // MARK: TODO - unwrap
         return appDelegate.mpcManager.foundPeers.count
     }
     
@@ -104,16 +107,12 @@ class MainViewController: UICollectionViewController {
         self.present(actionSheet, animated: true, completion: nil)
     }
     
-    func handleTempButtonTouch() {
+    func handleConnectChatButtonTouch() {
         let chatViewController = ChatViewController()
         chatViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-        chatViewController.preferredContentSize = CGSize(width: view.frame.width, height: 400)
+        chatViewController.preferredContentSize = CGSize(width: chatViewController.view.frame.width, height: 400)
         
-        present(chatViewController, animated: true, completion: nil)
-    }
-    
-    func handleConnectChatButtonTouch() {
-        print("Connect Chat Button Touched")
+        self.present(chatViewController, animated: true, completion: nil)
     }
     
     func handlePeerSendButtonTouch() {
@@ -127,22 +126,19 @@ class MainViewController: UICollectionViewController {
         return cell
     }
     
-    // MARK: TODO - unwrap session and selectedPeer
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.item] as MCPeerID
-//        let session = appDelegate.mpcManager?.session
         appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
+    
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let cellSize = CGSize(width: view.frame.width, height: 50)
         return cellSize
     }
@@ -182,7 +178,6 @@ extension MainViewController: MPCManagerDelegate {
     // inform the collectionView that the device is connected with a peer
     func connectedWithPeer(peerID: MCPeerID) {
         OperationQueue.main.addOperation { () -> Void in
-//            self.performSegue(withIdentifier: Constants.CellIdentifiers.chatTableViewCell, sender: self)
             let chatViewController = ChatViewController()
             chatViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             chatViewController.preferredContentSize = CGSize(width: chatViewController.view.frame.width, height: 400)
@@ -192,38 +187,3 @@ extension MainViewController: MPCManagerDelegate {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

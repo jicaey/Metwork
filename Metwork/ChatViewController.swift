@@ -94,15 +94,11 @@ class ChatViewController: UIViewController {
     
     // MARK: TODO - Fix names, unwrap
     func handleMPCReceivedData(withNotification: NSNotification) {
-        print("************************* Entered handleMPCReceivedData()")
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = withNotification.object as! [String : AnyObject]
-        print("receivedDataDictionary:\(receivedDataDictionary)")
         // "Extract" the data and the source peer from the received dictionary.
         let data = receivedDataDictionary["data"] as? Data
-        print("data: \(data)")
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
-        print("fromPeer: \(fromPeer)")
         // Convert the data (NSData) into a Dictionary object.
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data!) as! [String : String]
         print("dataDictionary: \(dataDictionary)")
@@ -170,11 +166,9 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UITextFieldDelegate {
     // MARK: TODO - unwrap
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("****** entered textFieldShouldReturn()")
         textField.resignFirstResponder()
         
         let messageDictionary: [String: String] = ["message": textField.text!]
-        print("MessageDictionary: \(messageDictionary)")
         let peer = appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID
         
         if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: peer) {
@@ -203,7 +197,7 @@ extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.chatTableViewCell, for: indexPath)
         cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
-        cell.detailTextLabel?.style
+        
         let currentMessage = messagesArray[indexPath.row] as [String : String]
         
         if let sender = currentMessage["sender"] {

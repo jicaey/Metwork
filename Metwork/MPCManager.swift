@@ -61,27 +61,21 @@ extension MPCManager: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
 //        let dictionary: [String : AnyObject] = ["data" : data as AnyObject, "fromPeer": peerID]
-        print("didReceive data called**************************************")
         let dictionary: [String : Any] = ["data" : data, "fromPeer" : peerID]
         NotificationCenter.default.post(name: Constants.MPC.receivedDataNotification, object: dictionary)
     }
     
     // MARK: TODO - refactor
     func sendData(dictionaryWithData dictionary: [String : String], toPeer targetPeer: MCPeerID) -> Bool {
-        print("******************************Entered sendData func")
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
-        print("dataToSend: \(dataToSend)")
         let peersArray = NSArray(object: targetPeer)
-        print("peersArray: \(peersArray)")
         
         do {
             try session.send(dataToSend, toPeers: peersArray as! [MCPeerID], with: MCSessionSendDataMode.reliable)
-            print("********************************Trying to send data")
+
         } catch {
-            print("******************************sendDataFunc return false")
             return false
         }
-        print("******************************sendDataFunc return true")
         return true
         
     }
