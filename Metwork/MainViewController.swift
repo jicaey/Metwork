@@ -25,20 +25,12 @@ class MainViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView?.backgroundColor = .white
-        
-        collectionView?.register(DiscoverablePeerCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.discoverablePeer)
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
-        
+ 
         setupNetworkHistoryView()
         setupNetworkProfileView()
         setupDiscoverablePeersView()
         setupNavigationBar()
-        // mpc
-        appDelegate.mpcManager.delegate = self
-        appDelegate.mpcManager.browser.startBrowsingForPeers()
-        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+        setupMPC()
     }
     
     private func setupNetworkHistoryView() {
@@ -54,9 +46,14 @@ class MainViewController: UICollectionViewController {
     }
     
     private func setupDiscoverablePeersView() {
+        collectionView?.register(DiscoverablePeerCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.discoverablePeer)
+//        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
+
         let topInset = view.frame.height / 1.8
         collectionView?.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+        
+        collectionView?.backgroundColor = .white
     }
     
     private func setupNavigationBar() {
@@ -67,6 +64,12 @@ class MainViewController: UICollectionViewController {
         titleLabel.textColor = .white
         titleLabel.font = Constants.Fonts.title
         navigationItem.titleView = titleLabel
+    }
+    
+    private func setupMPC() {
+        appDelegate.mpcManager.delegate = self
+        appDelegate.mpcManager.browser.startBrowsingForPeers()
+        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -100,7 +103,6 @@ class MainViewController: UICollectionViewController {
                 sender.setOn(true, animated: true)
             }
         }
-            
         actionSheet.addAction(visibilityAction)
         actionSheet.addAction(cancelAction)
         
@@ -135,9 +137,6 @@ class MainViewController: UICollectionViewController {
         let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.item] as MCPeerID
         appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
-    
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
@@ -183,11 +182,7 @@ extension MainViewController: MPCManagerDelegate {
     func connectedWithPeer(peerID: MCPeerID) {
         OperationQueue.main.addOperation { () -> Void in
             let chatViewController = ChatViewController()
-            chatViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-            chatViewController.preferredContentSize = CGSize(width: chatViewController.view.frame.width, height: 400)
-            
             self.present(chatViewController, animated: true, completion: nil)
-
         }
     }
 }

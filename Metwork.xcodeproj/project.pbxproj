@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7004A3CB1E5B937300AD19E5 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004A3CA1E5B937300AD19E5 /* ProfileDetailView.swift */; };
 		70361A831E52641F001597D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70361A821E52641F001597D4 /* Constants.swift */; };
 		703C45211E5291BF000B7D6B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45201E5291BF000B7D6B /* Extensions.swift */; };
 		703C45241E529208000B7D6B /* DiscoverablePeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */; };
@@ -19,6 +20,7 @@
 		707755F51E5B5F6D009F3092 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755F41E5B5F6D009F3092 /* DataStore.swift */; };
 		707755F71E5B6EDC009F3092 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755F61E5B6EDB009F3092 /* ContactInfo.swift */; };
 		707755F91E5B77DE009F3092 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755F81E5B77DE009F3092 /* ProfileDetailViewController.swift */; };
+		707755FB1E5B856E009F3092 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755FA1E5B856E009F3092 /* ChatView.swift */; };
 		709320CA1E54E0E9006721EF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709320C91E54E0E9006721EF /* ChatViewController.swift */; };
 		70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3E81E523AFA00913494 /* AppDelegate.swift */; };
 		70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3EA1E523AFA00913494 /* MainViewController.swift */; };
@@ -29,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7004A3CA1E5B937300AD19E5 /* ProfileDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
 		70361A821E52641F001597D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		703C45201E5291BF000B7D6B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverablePeerCell.swift; sourceTree = "<group>"; };
@@ -41,6 +44,7 @@
 		707755F41E5B5F6D009F3092 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		707755F61E5B6EDB009F3092 /* ContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		707755F81E5B77DE009F3092 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
+		707755FA1E5B856E009F3092 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		709320C91E54E0E9006721EF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		70BDF3E51E523AFA00913494 /* Metwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BDF3E81E523AFA00913494 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,8 +83,10 @@
 				703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */,
 				703C45281E5294DB000B7D6B /* NetworkHistoryView.swift */,
 				703C452E1E52ACBB000B7D6B /* NetworkHistoryCell.swift */,
+				707755FA1E5B856E009F3092 /* ChatView.swift */,
 				703C452A1E529E4E000B7D6B /* NetworkProfileView.swift */,
 				707755F21E5A43A9009F3092 /* NetworkProfileCell.swift */,
+				7004A3CA1E5B937300AD19E5 /* ProfileDetailView.swift */,
 				70BDF3EC1E523AFA00913494 /* Main.storyboard */,
 				70BDF3F41E523AFA00913494 /* LaunchScreen.storyboard */,
 			);
@@ -104,9 +110,9 @@
 			isa = PBXGroup;
 			children = (
 				70BDF3E81E523AFA00913494 /* AppDelegate.swift */,
-				707755F81E5B77DE009F3092 /* ProfileDetailViewController.swift */,
 				70BDF3EA1E523AFA00913494 /* MainViewController.swift */,
 				709320C91E54E0E9006721EF /* ChatViewController.swift */,
+				707755F81E5B77DE009F3092 /* ProfileDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 				703C45311E53A4B3000B7D6B /* MPCManager.swift in Sources */,
 				70BDF3F11E523AFA00913494 /* Metwork.xcdatamodeld in Sources */,
 				703C452B1E529E4E000B7D6B /* NetworkProfileView.swift in Sources */,
+				7004A3CB1E5B937300AD19E5 /* ProfileDetailView.swift in Sources */,
 				703C452F1E52ACBB000B7D6B /* NetworkHistoryCell.swift in Sources */,
 				707755F31E5A43A9009F3092 /* NetworkProfileCell.swift in Sources */,
 				707755F71E5B6EDC009F3092 /* ContactInfo.swift in Sources */,
@@ -241,6 +248,7 @@
 				703C452D1E52ABF8000B7D6B /* BaseCell.swift in Sources */,
 				70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */,
 				703C45291E5294DB000B7D6B /* NetworkHistoryView.swift in Sources */,
+				707755FB1E5B856E009F3092 /* ChatView.swift in Sources */,
 				70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */,
 				707755F51E5B5F6D009F3092 /* DataStore.swift in Sources */,
 				70361A831E52641F001597D4 /* Constants.swift in Sources */,
@@ -369,7 +377,7 @@
 				INFOPLIST_FILE = Metwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jicaey.Metwork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelYoung.Metwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -383,7 +391,7 @@
 				INFOPLIST_FILE = Metwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jicaey.Metwork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.michaelYoung.Metwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

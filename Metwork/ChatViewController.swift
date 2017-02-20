@@ -9,87 +9,27 @@
 import UIKit
 import MultipeerConnectivity
 
-// MARK: TODO - Refactor MVC
 class ChatViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var messagesArray = [[String : String]]()
+
+    let chatView = ChatView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Constants.Colors.green
-        chatTableView.delegate = self
-        chatTableView.dataSource = self
-        chatTextField.delegate = self
+        chatView.chatTableView.delegate = self
+        chatView.chatTableView.dataSource = self
+        chatView.chatTextField.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCReceivedData), name: Constants.MPC.receivedDataNotification, object: nil)
         
         setupViews()
     }
-    
-    let chatView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Constants.Colors.purple
-        return view
-    }()
-    
-    let chatTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.estimatedRowHeight = 60.0
-        tableView.rowHeight = UITableViewAutomaticDimension
-        return tableView
-    }()
-    
-    // MARK: TODO - Limit character count and fix constraints
-    let chatTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = Constants.Colors.blue
-        textField.font = Constants.Fonts.regSmall
-        textField.sizeToFit()
-        textField.isUserInteractionEnabled = true
-        textField.text = "Placeholder"
-        textField.layoutIfNeeded()
-        return textField
-    }()
-    
-    let chatSendButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Send", for: .normal)
-        button.titleLabel?.font = Constants.Fonts.regMedium
-        button.titleLabel?.textColor = .white
-        return button
-    }()
-    
-    let endChatButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("End Chat", for: .normal)
-        button.titleLabel?.font = Constants.Fonts.regMedium
-        button.titleLabel?.textColor = .white
-        button.addTarget(nil, action: #selector(handleEndChatButtonTouch), for: .touchUpInside)
-        return button
-    }()
-    
+
     func setupViews() {
-        chatTableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CellIdentifiers.chatTableViewCell)
-        
         view.addSubview(chatView)
         view.addConstraints(withFormat: "H:|[v0]|", views: chatView)
-        view.addConstraints(withFormat: "V:|[v0(200)]", views: chatView)
-        
-        view.addSubview(chatTableView)
-        view.addConstraints(withFormat: "H:|[v0]|", views: chatTableView)
-        view.addConstraints(withFormat: "V:|-200-[v0]|", views: chatTableView)
-        
-        view.addSubview(chatTextField)
-        view.addConstraints(withFormat: "H:|[v0]-50-|", views: chatTextField)
-        view.addConstraints(withFormat: "V:|-150-[v0]", views: chatTextField)
-        
-        view.addSubview(chatSendButton)
-        view.addConstraints(withFormat: "H:[v0(50)]|", views: chatSendButton)
-        view.addConstraints(withFormat: "V:|-150-[v0]", views: chatSendButton)
-        
-        view.addSubview(endChatButton)
-        view.addConstraints(withFormat: "H:[v0]|", views: endChatButton)
-        view.addConstraints(withFormat: "V:|-16-[v0]", views: endChatButton)
+        view.addConstraints(withFormat: "V:|[v0]|", views: chatView)
     }
     
     // MARK: TODO - Fix names, unwrap
@@ -135,11 +75,12 @@ class ChatViewController: UIViewController {
         }
     }
     
-    // MARK: TODO - Refactor and unwrap
     func handleEndChatButtonTouch() {
         let messageDictionary = ["message": "_end_chat_"]
-        if appDelegate.mpcManager.session.connectedPeers.count > 0 {
-            if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID) {
+        let connectedPeers = appDelegate.mpcManager.session.connectedPeers
+        
+        if connectedPeers.count > 0 {
+            if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: connectedPeers[0] as MCPeerID) {
                 self.dismiss(animated: true, completion: { () -> Void in
                     self.appDelegate.mpcManager.session.disconnect()
                 })
@@ -152,12 +93,11 @@ class ChatViewController: UIViewController {
     }
     
     func updateTableView() {
-        print("entered updateTableView()")
-        self.chatTableView.reloadData()
+        chatView.chatTableView.reloadData()
         
-        if self.chatTableView.contentSize.height > self.chatTableView.frame.size.height {
+        if chatView.chatTableView.contentSize.height > chatView.chatTableView.frame.size.height {
             let indexPath = IndexPath(row: messagesArray.count - 1, section: 0)
-            self.chatTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+            chatView.chatTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
         }
     }
     
