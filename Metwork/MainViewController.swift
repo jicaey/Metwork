@@ -119,6 +119,11 @@ class MainViewController: UICollectionViewController {
         print("Peer Send Button Touched")
     }
     
+    func editProfileButtonTouched() {
+        let profileDetailViewController = ProfileDetailViewController()
+        self.present(profileDetailViewController, animated: true, completion: nil)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
         cell.peerIdLabel.text = appDelegate.mpcManager.foundPeers[indexPath.row].displayName

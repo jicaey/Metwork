@@ -56,11 +56,9 @@ class NetworkProfileView: UIView {
         let buttonImage = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
         button.tintColor = .white
         button.setImage(buttonImage, for: .normal)
-        button.addTarget(nil, action: #selector(settingsButtonTouch), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(MainViewController.editProfileButtonTouched), for: .touchUpInside)
         return button
     }()
-    
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -99,10 +97,6 @@ class NetworkProfileView: UIView {
         addConstraints(withFormat: "V:|-21-[v0(50)]", views: editProfileButton)
         
         backgroundColor = Constants.Colors.purple
-    }
-    
-    func settingsButtonTouch() {
-
     }
 }
 
