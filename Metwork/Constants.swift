@@ -31,12 +31,15 @@ struct Constants {
         static let regSmall = UIFont(name: "Avenir Next Condensed", size: 14)
         static let italicSmall = UIFont(name: "AvenirNextCondensed-Italic", size: 14)
         static let title = UIFont(name: "AvenirNextCondensed-Medium", size: 24)
+        static let boldLarge = UIFont(name: "AvenirNextCondensed-Medium", size: 20)
     }
     
+    // MARK: TODO - Change identifier names for consistency
     struct CellIdentifiers {
         static let discoverablePeer = "discoverablePeerCellID"
-        static let networkHistory = "networkHistory"
+        static let networkHistory = "networkHistoryCell"
         static let chatTableViewCell = "chatCell"
+        static let profileNetwork = "profileNetworkCell"
     }
     
     struct MPC {
@@ -46,7 +49,25 @@ struct Constants {
         static let receivedDataNotification = Notification.Name(rawValue: "MPCDataNotification")
     }
     
-    struct NotificationCenterNames {
-//        static let advertiseToggleSwitch = Notification(name: Notification.Name(rawValue: "advertiseToggleNotification"))
+    struct Images {
+        static let networkProfile = ["email",
+                                     "website",
+                                     "github",
+                                     "linkedin",
+                                     "facebook",
+                                     "amazon",
+                                     "appleStore",
+                                     "digg",
+                                     "dnd",
+                                     "google",
+                                     "kickstarter",
+                                     "paypal",
+                                     "trello",
+                                     "tumblr",
+                                     "twitter",
+                                     "unity",
+                                     "vimeo",
+                                     "whatsapp",
+                                     "add"]
     }
 }

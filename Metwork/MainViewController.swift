@@ -129,7 +129,6 @@ class MainViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.item] as MCPeerID
         appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
-        
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}

@@ -33,6 +33,8 @@ class NetworkHistoryCell: BaseCell {
         let label = UILabel()
         label.text = "Jamie Campbell Bower"
         label.font = Constants.Fonts.regSmall
+        label.textColor = .white
+        
         return label
     }()
     
