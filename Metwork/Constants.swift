@@ -55,19 +55,10 @@ struct Constants {
                                      "github",
                                      "linkedin",
                                      "facebook",
-                                     "amazon",
-                                     "appleStore",
-                                     "digg",
-                                     "dnd",
-                                     "google",
-                                     "kickstarter",
-                                     "paypal",
-                                     "trello",
-                                     "tumblr",
                                      "twitter",
+                                     "appleStore",
+                                     "dnd",
                                      "unity",
-                                     "vimeo",
-                                     "whatsapp",
-                                     "add"]
+                                     "whatsapp"]
     }
 }

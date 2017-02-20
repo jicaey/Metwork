@@ -17,6 +17,7 @@
 		703C45311E53A4B3000B7D6B /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45301E53A4B3000B7D6B /* MPCManager.swift */; };
 		707755F31E5A43A9009F3092 /* NetworkProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755F21E5A43A9009F3092 /* NetworkProfileCell.swift */; };
 		707755F51E5B5F6D009F3092 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755F41E5B5F6D009F3092 /* DataStore.swift */; };
+		707755F71E5B6EDC009F3092 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707755F61E5B6EDB009F3092 /* ContactInfo.swift */; };
 		709320CA1E54E0E9006721EF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709320C91E54E0E9006721EF /* ChatViewController.swift */; };
 		70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3E81E523AFA00913494 /* AppDelegate.swift */; };
 		70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDF3EA1E523AFA00913494 /* MainViewController.swift */; };
@@ -37,6 +38,7 @@
 		703C45301E53A4B3000B7D6B /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		707755F21E5A43A9009F3092 /* NetworkProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProfileCell.swift; sourceTree = "<group>"; };
 		707755F41E5B5F6D009F3092 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		707755F61E5B6EDB009F3092 /* ContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		709320C91E54E0E9006721EF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		70BDF3E51E523AFA00913494 /* Metwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BDF3E81E523AFA00913494 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				703C45301E53A4B3000B7D6B /* MPCManager.swift */,
+				707755F61E5B6EDB009F3092 /* ContactInfo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				703C452B1E529E4E000B7D6B /* NetworkProfileView.swift in Sources */,
 				703C452F1E52ACBB000B7D6B /* NetworkHistoryCell.swift in Sources */,
 				707755F31E5A43A9009F3092 /* NetworkProfileCell.swift in Sources */,
+				707755F71E5B6EDC009F3092 /* ContactInfo.swift in Sources */,
 				703C45241E529208000B7D6B /* DiscoverablePeerCell.swift in Sources */,
 				703C452D1E52ABF8000B7D6B /* BaseCell.swift in Sources */,
 				70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */,

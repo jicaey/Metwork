@@ -10,22 +10,25 @@ import Foundation
 import UIKit
 
 class NetworkProfileCell: BaseCell {
+    let store = DataStore.sharedInstance
+    
     let cellImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
     
-//    override var isHighlighted: Bool {
-//        didSet {
-//            // ternary operator to determine image tint color
-//            cellImageView.tintColor = isHighlighted ? .white : Constants.Colors.purple
-//        }
-//    }
-    
     override var isSelected: Bool {
         didSet {
             // ternary operator to determine image tint color
             cellImageView.tintColor = isSelected ? .white : Constants.Colors.purple
+        }
+    }
+    
+    func toggleSelectedState() {
+        if isSelected {
+            print("Selected")
+        } else {
+            print("Deselected")
         }
     }
     

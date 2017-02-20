@@ -51,6 +51,15 @@ class NetworkProfileView: UIView {
         return collectionView
     }()
     
+    let editProfileButton: UIButton = {
+        let button = UIButton()
+        let buttonImage = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
+        button.tintColor = .white
+        button.setImage(buttonImage, for: .normal)
+        button.addTarget(nil, action: #selector(settingsButtonTouch), for: .touchUpInside)
+        return button
+    }()
+    
     
     
     override init(frame: CGRect) {
@@ -72,7 +81,7 @@ class NetworkProfileView: UIView {
         addConstraints(withFormat: "V:|-36-[v0(22)]", views: profileNameLabel)
         
         addSubview(advertiseToggleButton)
-        addConstraints(withFormat: "H:[v0]-36-|", views: advertiseToggleButton)
+        addConstraints(withFormat: "H:[v0]-68-|", views: advertiseToggleButton)
         addConstraints(withFormat: "V:|-30-[v0]", views: advertiseToggleButton)
         
         addSubview(emailLabel)
@@ -85,7 +94,15 @@ class NetworkProfileView: UIView {
         addConstraints(withFormat: "H:|-32-[v0]-32-|", views: profileCollectionView)
         addConstraints(withFormat: "V:|-90-[v0]-32-|", views: profileCollectionView)
         
+        addSubview(editProfileButton)
+        addConstraints(withFormat: "H:[v0(50)]-18-|", views: editProfileButton)
+        addConstraints(withFormat: "V:|-21-[v0(50)]", views: editProfileButton)
+        
         backgroundColor = Constants.Colors.purple
+    }
+    
+    func settingsButtonTouch() {
+
     }
 }
 
@@ -102,7 +119,14 @@ extension NetworkProfileView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.profileNetwork, for: indexPath) as! NetworkProfileCell
+        cell.toggleSelectedState()
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.profileNetwork, for: indexPath) as! NetworkProfileCell
+        cell.toggleSelectedState()
     }
 }
 
