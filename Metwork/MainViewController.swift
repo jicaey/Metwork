@@ -82,7 +82,7 @@ class MainViewController: UICollectionViewController {
         return appDelegate.mpcManager.foundPeers.count
     }
     
-    func adversiseToggleDidChange(sender: UISwitch) {
+    func advertiseToggleDidChange(sender: UISwitch) {
         let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertControllerStyle.actionSheet)
         var actionTitle = String()
         
@@ -95,9 +95,11 @@ class MainViewController: UICollectionViewController {
         let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default) { (alertAction) -> Void in
             if sender.isOn {
                 self.appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "visibilityPostVisible"), object: nil)
                 print("Started Advertising")
             } else {
                 self.appDelegate.mpcManager.advertiser.stopAdvertisingPeer()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "visibilityPostNotVisible"), object: nil)
                 print("Stopped Advertising")
             }
         }

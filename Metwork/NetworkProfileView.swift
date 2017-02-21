@@ -29,18 +29,19 @@ class NetworkProfileView: UIView {
     
     let advertiseToggleButton: UISwitch = {
         let button = UISwitch()
+        button.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         button.isOn = true
         button.setOn(true, animated: false)
-        button.onTintColor = Constants.Colors.pink
-        button.addTarget(nil, action: #selector(MainViewController.adversiseToggleDidChange(sender:)), for: .valueChanged)
+        button.onTintColor = Constants.Colors.green
+        button.addTarget(nil, action: #selector(MainViewController.advertiseToggleDidChange(sender:)), for: .valueChanged)
         return button
     }()
     
-    let emailLabel: UILabel = {
+    let advertiseLabel: UILabel = {
         let label = UILabel()
         label.font = Constants.Fonts.regMedium
         label.textColor = .white
-        label.text = "michaelyoung.dev@gmail.com"
+        label.text = "Visible"
         return label
     }()
     
@@ -66,6 +67,8 @@ class NetworkProfileView: UIView {
         super.init(frame: frame)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLabel), name: NSNotification.Name(rawValue: "updateLabel") , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAdvertiseLabelVisible), name: NSNotification.Name(rawValue: "visibilityPostVisible"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAdvertiseLabelNotVisible), name: NSNotification.Name(rawValue: "visibilityPostNotVisible"), object: nil)
         setupViews()
     }
     
@@ -82,22 +85,30 @@ class NetworkProfileView: UIView {
         }
     }
     
+    func updateAdvertiseLabelVisible() {
+        advertiseLabel.text = "Visible"
+    }
+    
+    func updateAdvertiseLabelNotVisible() {
+        advertiseLabel.text = "Not Visible"
+    }
+    
     func setupViews() {
         addSubview(cardView)
-        addConstraints(withFormat: "H:|-20-[v0]-20-|", views: cardView)
+        addConstraints(withFormat: "H:|-16-[v0]-16-|", views: cardView)
         addConstraints(withFormat: "V:|-20-[v0]-20-|", views: cardView)
         
         addSubview(profileNameLabel)
         addConstraints(withFormat: "H:|-36-[v0]", views: profileNameLabel)
-        addConstraints(withFormat: "V:|-36-[v0(22)]", views: profileNameLabel)
+        addConstraints(withFormat: "V:|-35-[v0(22)]", views: profileNameLabel)
         
         addSubview(advertiseToggleButton)
-        addConstraints(withFormat: "H:[v0]-68-|", views: advertiseToggleButton)
+        addConstraints(withFormat: "H:[v0]-18-|", views: advertiseToggleButton)
         addConstraints(withFormat: "V:|-30-[v0]", views: advertiseToggleButton)
         
-        addSubview(emailLabel)
-        addConstraints(withFormat: "H:|-44-[v0]", views: emailLabel)
-        addConstraints(withFormat: "V:|-55-[v0]", views: emailLabel)
+        addSubview(advertiseLabel)
+        addConstraints(withFormat: "H:[v0]-70-|", views: advertiseLabel)
+        addConstraints(withFormat: "V:|-35-[v0]", views: advertiseLabel)
         
         addSubview(profileCollectionView)
         profileCollectionView.allowsMultipleSelection = true
