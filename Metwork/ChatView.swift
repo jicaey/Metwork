@@ -12,7 +12,7 @@ class ChatView: UIView {
 
     let backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = Constants.Colors.purple
         return view
     }()
     

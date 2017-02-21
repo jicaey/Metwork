@@ -32,6 +32,7 @@ struct Constants {
         static let italicSmall = UIFont(name: "AvenirNextCondensed-Italic", size: 14)
         static let title = UIFont(name: "AvenirNextCondensed-Medium", size: 24)
         static let boldLarge = UIFont(name: "AvenirNextCondensed-Medium", size: 20)
+        static let boldMedium = UIFont(name: "AvenirNextCondensed-Medium", size: 16)
     }
     
     // MARK: TODO - Change identifier names for consistency

@@ -26,8 +26,24 @@ class ProfileDetailViewController: UIViewController {
     }
     
     func saveButtonTouched() {
+        
         let displayNameInput = profileDetailView.profileNameTextField.text
+        
+        let emailInput = profileDetailView.emailTextField.text
+        let websiteInput = profileDetailView.websiteTextField.text
+        let githubInput = profileDetailView.githubTextField.text
+        let linkedinInput = profileDetailView.linkedinTextField.text
+        let facebookInput = profileDetailView.facebookTextField.text
+        let twitterInput = profileDetailView.twitterTextField.text
+        
         store.profileData["displayName"] = displayNameInput
+        
+        store.profileData["email"] = emailInput
+        store.profileData["website"] = websiteInput
+        store.profileData["github"] = githubInput
+        store.profileData["linkedin"] = linkedinInput
+        store.profileData["facebook"] = facebookInput
+        store.profileData["twitter"] = twitterInput
         
         self.dismiss(animated: true, completion: nil)
     }

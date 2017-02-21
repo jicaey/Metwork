@@ -28,62 +28,37 @@ class DiscoverablePeerCell: BaseCell {
     let peerIdLabel: UILabel = {
         let label = UILabel()
         label.text = "Anthony Miller"
-        label.font = Constants.Fonts.regMedium
+        label.font = Constants.Fonts.boldMedium
         return label
     }()
     
-    let statusLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Status: Available"
-        label.font = Constants.Fonts.italicSmall
-        return label
-    }()
+//    let statusLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Status: Available"
+//        label.font = Constants.Fonts.italicSmall
+//        return label
+//    }()
     
     let professionLabel: UILabel = {
         let label = UILabel()
-        label.text = "iOS Developer and stuff"
+        label.text = "•  iOS Developer and stuff"
         label.font = Constants.Fonts.regSmall
         return label
-    }()
-    
-    let connectChatButton: UIButton = {
-        let button = UIButton()
-        let buttonImage = UIImage(named: "peerChat")?.withRenderingMode(.alwaysTemplate)
-        button.tintColor = Constants.Colors.blue
-        button.setImage(buttonImage, for: .normal)
-        button.addTarget(nil, action: #selector(MainViewController.handleConnectChatButtonTouch), for: .touchUpInside)
-        return button
-    }()
-    
-    let peerSendButton: UIButton = {
-        let button = UIButton()
-        let buttonImage = UIImage(named: "peerSend")?.withRenderingMode(.alwaysTemplate)
-        button.tintColor = Constants.Colors.green
-        button.setImage(buttonImage, for: .normal)
-        //        button.isHidden = true
-        button.addTarget(nil, action: #selector(MainViewController.handlePeerSendButtonTouch), for: .touchUpInside)
-        return button
     }()
     
     override func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(separatorView)
         addSubview(peerIdLabel)
-        addSubview(statusLabel)
         addSubview(professionLabel)
-        addSubview(connectChatButton)
-        addSubview(peerSendButton)
         
         // horizontal
-        addConstraints(withFormat: "H:|-16-[v0(44)]-8-[v1]-8-[v2]-8-[v3(44)][v4(44)]|", views: thumbnailImageView, peerIdLabel, professionLabel, peerSendButton, connectChatButton)
-        addConstraints(withFormat: "H:|-76-[v0(200)]", views: statusLabel)
+        addConstraints(withFormat: "H:|-16-[v0(44)]-8-[v1]-8-[v2]", views: thumbnailImageView, peerIdLabel, professionLabel)
         
         // vertical
         addConstraints(withFormat: "V:|-3-[v0]-3-|", views: thumbnailImageView)
-        addConstraints(withFormat: "V:|-3-[v0(20)]-4-[v1(20)]-3-|", views: statusLabel, peerIdLabel)
-        addConstraints(withFormat: "V:|-27-[v0(20)]", views: professionLabel)
-        addConstraints(withFormat: "V:|-3-[v0]-3-|", views: connectChatButton)
-        addConstraints(withFormat: "V:|-3-[v0]-3-|", views: peerSendButton)
+        addConstraints(withFormat: "V:|-14-[v0(20)]|", views: peerIdLabel)
+        addConstraints(withFormat: "V:|-15-[v0(20)]", views: professionLabel)
         
         // separator
         addConstraints(withFormat: "H:|[v0]|", views: separatorView)
