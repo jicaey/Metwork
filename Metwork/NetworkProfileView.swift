@@ -10,6 +10,8 @@ import UIKit
 
 // MARK: TODO - Separate code between View and Controller
 class NetworkProfileView: UIView {
+    let store = DataStore.sharedInstance
+    
     let cardView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 3
@@ -19,7 +21,7 @@ class NetworkProfileView: UIView {
     
     let profileNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Michael Young Junior"
+        label.text = "Michael Young"
         label.textColor = .white
         label.font = Constants.Fonts.boldLarge
         return label
@@ -51,22 +53,33 @@ class NetworkProfileView: UIView {
         return collectionView
     }()
     
-//    let editProfileButton: UIButton = {
-//        let button = UIButton()
-//        let buttonImage = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
-//        button.tintColor = .white
-//        button.setImage(buttonImage, for: .normal)
-//        button.addTarget(nil, action: #selector(MainViewController.editProfileButtonTouched), for: .touchUpInside)
-//        return button
-//    }()
+    //    let editProfileButton: UIButton = {
+    //        let button = UIButton()
+    //        let buttonImage = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
+    //        button.tintColor = .white
+    //        button.setImage(buttonImage, for: .normal)
+    //        button.addTarget(nil, action: #selector(MainViewController.editProfileButtonTouched), for: .touchUpInside)
+    //        return button
+    //    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLabel), name: NSNotification.Name(rawValue: "updateLabel") , object: nil)
         setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateLabel() {
+        if store.profileData["displayName"] == "" {
+            profileNameLabel.text = "\(UIDevice.current.name)"
+            print("Device name\(UIDevice.current.name)")
+        } else {
+            profileNameLabel.text = store.profileData["displayName"]
+        }
     }
     
     func setupViews() {
@@ -92,9 +105,9 @@ class NetworkProfileView: UIView {
         addConstraints(withFormat: "H:|-32-[v0]-32-|", views: profileCollectionView)
         addConstraints(withFormat: "V:|-90-[v0]-32-|", views: profileCollectionView)
         
-//        addSubview(editProfileButton)
-//        addConstraints(withFormat: "H:[v0(50)]-18-|", views: editProfileButton)
-//        addConstraints(withFormat: "V:|-21-[v0(50)]", views: editProfileButton)
+        //        addSubview(editProfileButton)
+        //        addConstraints(withFormat: "H:[v0(50)]-18-|", views: editProfileButton)
+        //        addConstraints(withFormat: "V:|-21-[v0(50)]", views: editProfileButton)
         
         backgroundColor = Constants.Colors.purple
     }

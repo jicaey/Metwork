@@ -9,10 +9,14 @@
 import UIKit
 
 class ProfileDetailViewController: UIViewController {
+    let store = DataStore.sharedInstance
     let profileDetailView = ProfileDetailView()
+    let networkProfileView = NetworkProfileView()
+    
         
     override func viewDidLoad() {
         setupViews()
+        profileDetailView.profileNameTextField.delegate = self
     }
     
     func setupViews() {
@@ -22,6 +26,21 @@ class ProfileDetailViewController: UIViewController {
     }
     
     func saveButtonTouched() {
+        let displayNameInput = profileDetailView.profileNameTextField.text
+        store.profileData["displayName"] = displayNameInput
         
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileDetailViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        saveButtonTouched()
     }
 }

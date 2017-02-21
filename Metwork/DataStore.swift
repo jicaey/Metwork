@@ -13,4 +13,11 @@ class DataStore {
     private init() {}
     
     var outboundData = [String : String]()
+    
+    var profileData = [String : String]() {
+        didSet {
+            print("ProfileData Set: \(profileData)")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateLabel"), object: nil)
+        }
+    }
 }

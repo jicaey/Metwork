@@ -15,14 +15,6 @@ class ProfileDetailView: UIView {
         return view
     }()
     
-//    let doneButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Done", for: .normal)
-//        button.titleLabel?.font = Constants.Fonts.boldLarge
-//        button.addTarget(nil, action: #selector(ProfileDetailViewController.doneButtonTouched), for: .touchUpInside)
-//        return button
-//    }()
-    
     let profileNameTextField: LeftPaddedTextField = {
         let textField = LeftPaddedTextField()
         textField.backgroundColor = .white
@@ -44,6 +36,7 @@ class ProfileDetailView: UIView {
         let button = UIButton()
         button.setTitle("Save", for: .normal)
         button.titleLabel?.font = Constants.Fonts.boldLarge
+        button.addTarget(nil, action: #selector(ProfileDetailViewController.saveButtonTouched), for: .touchUpInside)
         return button
     }()
 
@@ -71,10 +64,6 @@ class ProfileDetailView: UIView {
         addSubview(saveButton)
         addConstraints(withFormat: "H:|-50-[v0]-50-|", views: saveButton)
         addConstraints(withFormat: "V:[v0(30)]-36-|", views: saveButton)
-//        addSubview(doneButton)
-//        addConstraints(withFormat: "H:[v0(50)]-18-|", views: doneButton)
-//        addConstraints(withFormat: "V:|-18-[v0]", views: doneButton)
-        
     }
 
 }
