@@ -64,6 +64,12 @@ class MainViewController: UICollectionViewController {
         titleLabel.textColor = .white
         titleLabel.font = Constants.Fonts.title
         navigationItem.titleView = titleLabel
+        
+        let settingsImage = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
+        let settingsBarButton = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(editProfileButtonTouched))
+        settingsBarButton.tintColor = .white
+        
+        navigationItem.setRightBarButtonItems([settingsBarButton], animated: true)
     }
     
     private func setupMPC() {
@@ -121,10 +127,21 @@ class MainViewController: UICollectionViewController {
         print("Peer Send Button Touched")
     }
     
-    func editProfileButtonTouched() {
+    func editProfileButtonTouched(sender: UIBarButtonItem) {
         let profileDetailViewController = ProfileDetailViewController()
+        profileDetailViewController.modalPresentationStyle = .popover
+        profileDetailViewController.preferredContentSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height - 36)
+        
+        let popoverProfileDetailViewController = profileDetailViewController.popoverPresentationController
+        popoverProfileDetailViewController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 100, height: 100)
+        popoverProfileDetailViewController?.permittedArrowDirections = .init(rawValue: 0)
+        popoverProfileDetailViewController?.delegate = self
+        popoverProfileDetailViewController?.sourceView = self.view
+        
         self.present(profileDetailViewController, animated: true, completion: nil)
     }
+    
+
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.discoverablePeer, for: indexPath) as! DiscoverablePeerCell
@@ -184,5 +201,11 @@ extension MainViewController: MPCManagerDelegate {
             let chatViewController = ChatViewController()
             self.present(chatViewController, animated: true, completion: nil)
         }
+    }
+}
+
+extension MainViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
 }

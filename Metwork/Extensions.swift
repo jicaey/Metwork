@@ -20,6 +20,4 @@ extension UIView {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: withFormat, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
-    
 }
-

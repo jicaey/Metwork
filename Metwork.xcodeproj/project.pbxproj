@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7004A3CB1E5B937300AD19E5 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004A3CA1E5B937300AD19E5 /* ProfileDetailView.swift */; };
+		7004A3CD1E5BC42700AD19E5 /* LeftPaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7004A3CC1E5BC42700AD19E5 /* LeftPaddedTextField.swift */; };
 		70361A831E52641F001597D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70361A821E52641F001597D4 /* Constants.swift */; };
 		703C45211E5291BF000B7D6B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45201E5291BF000B7D6B /* Extensions.swift */; };
 		703C45241E529208000B7D6B /* DiscoverablePeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		7004A3CA1E5B937300AD19E5 /* ProfileDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		7004A3CC1E5BC42700AD19E5 /* LeftPaddedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftPaddedTextField.swift; sourceTree = "<group>"; };
 		70361A821E52641F001597D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		703C45201E5291BF000B7D6B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		703C45231E529208000B7D6B /* DiscoverablePeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverablePeerCell.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			children = (
 				703C45301E53A4B3000B7D6B /* MPCManager.swift */,
 				707755F61E5B6EDB009F3092 /* ContactInfo.swift */,
+				7004A3CC1E5BC42700AD19E5 /* LeftPaddedTextField.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				70BDF3EB1E523AFA00913494 /* MainViewController.swift in Sources */,
 				703C45291E5294DB000B7D6B /* NetworkHistoryView.swift in Sources */,
 				707755FB1E5B856E009F3092 /* ChatView.swift in Sources */,
+				7004A3CD1E5BC42700AD19E5 /* LeftPaddedTextField.swift in Sources */,
 				70BDF3E91E523AFA00913494 /* AppDelegate.swift in Sources */,
 				707755F51E5B5F6D009F3092 /* DataStore.swift in Sources */,
 				70361A831E52641F001597D4 /* Constants.swift in Sources */,
