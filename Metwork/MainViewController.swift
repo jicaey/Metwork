@@ -9,9 +9,9 @@
 import UIKit
 import MultipeerConnectivity
 
-
 class MainViewController: UICollectionViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let store = DataStore.sharedInstance
     
     let networkHistoryView: NetworkHistoryView = {
         let nb = NetworkHistoryView()
@@ -203,6 +203,8 @@ extension MainViewController: MPCManagerDelegate {
             let chatViewController = ChatViewController()
             self.present(chatViewController, animated: true, completion: nil)
         }
+        
+        
     }
 }
 

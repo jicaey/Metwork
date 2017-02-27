@@ -30,7 +30,7 @@ class MPCManager: NSObject {
     override init() {
         super.init()
         
-        // MARK: TODO - change displayName to custom string
+        // TODO: change displayName to custom string
         peer = MCPeerID(displayName: UIDevice.current.name)
         
 //        session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
@@ -40,7 +40,7 @@ class MPCManager: NSObject {
         browser = MCNearbyServiceBrowser(peer: peer, serviceType: Constants.MPC.serviceType)
         browser.delegate = self
         
-        // MARK: TODO - discoveryInfo modification - add information to pass upon discovery - key/value = string/string
+        // TODO: discoveryInfo modification - add information to pass upon discovery - key/value = string/string
         advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: Constants.MPC.serviceType)
         advertiser.delegate = self
     }
@@ -65,7 +65,7 @@ extension MPCManager: MCSessionDelegate {
         NotificationCenter.default.post(name: Constants.MPC.receivedDataNotification, object: dictionary)
     }
     
-    // MARK: TODO - refactor
+    // TODO: refactor
     func sendData(dictionaryWithData dictionary: [String : String], toPeer targetPeer: MCPeerID) -> Bool {
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
         let peersArray = NSArray(object: targetPeer)
@@ -98,7 +98,7 @@ extension MPCManager: MCNearbyServiceBrowserDelegate {
     }
     
     // handle peers that are no longer discoverable
-    // MARK: TODO - handle case where connection is lost between peers and if one peer terminates app. Post Notification and observe
+    // TODO: - handle case where connection is lost between peers and if one peer terminates app. Post Notification and observe
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         for (index, aPeer) in foundPeers.enumerated() {
             if aPeer == peerID {
@@ -117,7 +117,7 @@ extension MPCManager: MCNearbyServiceBrowserDelegate {
 
 extension MPCManager: MCNearbyServiceAdvertiserDelegate {
     // invitation handler
-    // MARK: TODO - peerID displayName to custom
+    // TODO: change peerID displayName to custom
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         self.invitationHandler = invitationHandler
         delegate?.invintationWasReceived(fromPeer: peerID.displayName)

@@ -11,8 +11,10 @@ import MultipeerConnectivity
 
 class ChatViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let store = DataStore.sharedInstance
+    
     var messagesArray = [[String : String]]()
-
+    var receivedData = [String : String]()
     let chatView = ChatView()
     
     override func viewDidLoad() {
@@ -36,12 +38,15 @@ class ChatViewController: UIViewController {
     func handleMPCReceivedData(withNotification: NSNotification) {
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = withNotification.object as! [String : AnyObject]
+        
         // "Extract" the data and the source peer from the received dictionary.
         let data = receivedDataDictionary["data"] as? Data
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
+        
         // Convert the data (NSData) into a Dictionary object.
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data!) as! [String : String]
         print("dataDictionary: \(dataDictionary)")
+        
         // Check if there's an entry with the "message" key.
         if let message = dataDictionary["message"] {
             // Make sure that the message is other than "_end_chat_".
@@ -56,8 +61,7 @@ class ChatViewController: UIViewController {
                 OperationQueue.main.addOperation({ () -> Void in
                     self.updateTableView()
                 })
-            }
-            else{
+            } else {
                 // In this case an "_end_chat_" message was received.
                 // Show an alert view to the user.
                 let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.alert)
@@ -73,6 +77,22 @@ class ChatViewController: UIViewController {
                 })
             }
         }
+        
+        if dataDictionary["displayName"] != nil {
+            print("*****Receieved Data*****")
+            receivedData = dataDictionary
+            // TODO: Move
+            OperationQueue.main.addOperation({ () -> Void in
+                self.chatView.testTextView.text = "\(self.receivedData)"
+            })
+            
+        } else {
+            OperationQueue.main.addOperation({ () -> Void in
+                self.chatView.testTextView.text = "Couldn't find displayName"
+            })
+            
+        }
+        
     }
     
     func handleEndChatButtonTouch() {
@@ -101,6 +121,15 @@ class ChatViewController: UIViewController {
         }
     }
     
+    // TODO: Add encryption
+    func sendDataButtonTouched() {
+        let outboundData = store.outboundData
+        let peer = appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID
+        
+        if appDelegate.mpcManager.sendData(dictionaryWithData: outboundData, toPeer: peer) {
+            print("Data Sent")
+        }
+    }
 }
 
 extension ChatViewController: UITextFieldDelegate {

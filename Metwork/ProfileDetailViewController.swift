@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class ProfileDetailViewController: UIViewController {
     let store = DataStore.sharedInstance
     let profileDetailView = ProfileDetailView()
     let networkProfileView = NetworkProfileView()
     
-        
+    
     override func viewDidLoad() {
         setupViews()
+        updateTextFields()
+        
         profileDetailView.profileNameTextField.delegate = self
+        
+        store.fetchProfileData()
     }
     
     func setupViews() {
@@ -36,27 +41,52 @@ class ProfileDetailViewController: UIViewController {
         let facebookInput = profileDetailView.facebookTextField.text
         let twitterInput = profileDetailView.twitterTextField.text
         
-        store.profileData["displayName"] = displayNameInput
+        store.profileInput["displayName"] = displayNameInput
         
-        store.profileData["email"] = emailInput
-        store.profileData["website"] = websiteInput
-        store.profileData["github"] = githubInput
-        store.profileData["linkedin"] = linkedinInput
-        store.profileData["facebook"] = facebookInput
-        store.profileData["twitter"] = twitterInput
+        store.profileInput["email"] = emailInput
+        store.profileInput["website"] = websiteInput
+        store.profileInput["github"] = githubInput
+        store.profileInput["linkedin"] = linkedinInput
+        store.profileInput["facebook"] = facebookInput
+        store.profileInput["twitter"] = twitterInput
         
+        store.saveProfileData()
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func updateTextFields() {
+        let profileInput = store.profileInput
+        
+        for (key, value) in profileInput {
+            switch key {
+            case "displayName":
+                profileDetailView.profileNameTextField.text = value
+            case "email":
+                profileDetailView.emailTextField.text = value
+            case "website":
+                profileDetailView.websiteTextField.text = value
+            case "github":
+                profileDetailView.githubTextField.text = value
+            case "linkedin":
+                profileDetailView.linkedinTextField.text = value
+            case "facebook":
+                profileDetailView.facebookTextField.text = value
+            case "twitter":
+                profileDetailView.twitterTextField.text = value
+            default: break
+            }
+        }
     }
 }
 
 extension ProfileDetailViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        saveButtonTouched()
+        //        saveButtonTouched()
     }
 }

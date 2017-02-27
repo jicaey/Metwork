@@ -62,4 +62,8 @@ struct Constants {
                                      "unity",
                                      "whatsapp"]
     }
+    
+    struct CoreData {
+        static let profileDataName = String(describing: ProfileData.self)
+    }
 }

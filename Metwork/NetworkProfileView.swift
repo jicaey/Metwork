@@ -77,11 +77,11 @@ class NetworkProfileView: UIView {
     }
     
     func updateLabel() {
-        if store.profileData["displayName"] == "" {
+        if store.profileInput["displayName"] == "" {
             profileNameLabel.text = "\(UIDevice.current.name)"
             print("Device name\(UIDevice.current.name)")
         } else {
-            profileNameLabel.text = store.profileData["displayName"]
+            profileNameLabel.text = store.profileInput["displayName"]
         }
     }
     
@@ -138,12 +138,17 @@ extension NetworkProfileView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.profileNetwork, for: indexPath) as! NetworkProfileCell
-        cell.toggleSelectedState()
+        let key = Constants.Images.networkProfile[indexPath.item]
+        store.outboundData[key] = store.profileInput[key]
         
+        cell.toggleSelectedState()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.profileNetwork, for: indexPath) as! NetworkProfileCell
+        let key = Constants.Images.networkProfile[indexPath.item]
+        store.outboundData[key] = nil
+
         cell.toggleSelectedState()
     }
 }
